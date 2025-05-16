@@ -1,0 +1,143 @@
+body{
+
+    background-color: #121212;
+    color: white;
+
+    margin: 0px;
+}
+
+
+
+.page{
+
+    position: relative;
+
+    display: flex;
+
+    height: 100vh;
+}
+
+
+.custom-menu{
+
+    position: absolute;
+    background-color: red;
+
+    top: 250px;
+    left: 100px;
+
+
+}
+
+.custom-menu-option{
+
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.custom-menu-option:hover{
+
+    background-color: green;
+}
+
+.left-banner{
+
+    background-color: white;
+    color: black;
+
+    flex: 0 0 200px;
+
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.viewport{
+
+    flex: 1;
+
+    display: grid;
+    grid-template-rows: 100px 1fr;
+}
+
+.content{
+
+    width: 100%;
+    display: flex;
+    gap: 10px;
+
+    overflow: auto;
+
+    justify-content: left;
+}
+
+.column{
+
+    flex: 0 0 200px;
+    background: red;
+
+    box-sizing: border-box;
+    padding: 5px 5px 0px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.column-content{
+
+    flex: 1;
+    overflow: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 0px 5px 0px 0px;
+
+
+    gap: 10px;
+}
+
+.card{
+
+    width: 100%;
+    min-height: 150px;
+    max-height: 200px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: #242424 3px 5px 5px 2px;
+    overflow: hidden;
+
+    box-sizing: border-box;
+    padding: 15px;
+
+    position: relative;
+}
+
+.card-color{
+
+    position: absolute;
+
+    left: 0px;
+    top: 0px;
+
+    width: 10px;
+    height: 100%;
+    background-color: green;
+}
+
+.card h1{
+
+    margin: 0px;
+    color: black;
+
+}
+
+.add-column{
+
+    flex: 0 0 auto;
+    align-self: flex-start;
+
+    cursor: pointer;
+    border: white 2px solid;
+}
