@@ -7,7 +7,8 @@ import {Column} from "./scripts/models/column"
 
 
 import {DOMboard} from "./scripts/dom/DOMboard"
-
+import {DOMColumn, InitialiseColumns} from "./scripts/dom/DOMcolumn"
+import {DOMCard, InitialiseCards, CardWrapper } from "./scripts/dom/DOMcard";
 
 const data = {
 
@@ -35,9 +36,10 @@ const createEmptyBoard = function(){
     data.addBoard(board);
 }
 
+let currentlySelected = CardWrapper();
 
-
-
+InitialiseCards(currentlySelected);
+InitialiseColumns(currentlySelected);
 
 
 window.create = createEmptyBoard;

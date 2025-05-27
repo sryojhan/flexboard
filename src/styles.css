@@ -1,9 +1,11 @@
 body{
 
-    background-color: #121212;
+    background-color: #364865;
     color: white;
 
     margin: 0px;
+
+    user-select: none;
 }
 
 
@@ -26,7 +28,8 @@ body{
     top: 250px;
     left: 100px;
 
-
+    user-select: none;
+    cursor: pointer;
 }
 
 .custom-menu-option{
@@ -49,6 +52,7 @@ body{
 
     padding: 10px;
     box-sizing: border-box;
+
 }
 
 .viewport{
@@ -63,39 +67,82 @@ body{
 
     width: 100%;
     display: flex;
+
+
     gap: 10px;
 
     overflow: auto;
 
     justify-content: left;
+
+    box-sizing: border-box;
+    padding: 10px;
+
 }
 
 .column{
 
-    flex: 0 0 200px;
-    background: red;
+    flex: 0 0 300px;
+    align-self: flex-start;
+
+    background-color: #f1f2f4;
+
 
     box-sizing: border-box;
-    padding: 5px 5px 0px;
-
+    
     display: flex;
     flex-direction: column;
+    
+    border-radius: 8px;
+    padding: 10px 7px;
+
+    max-height: 100%;
+
+
+}
+
+.column.dragover{
+
+    outline:3px rgb(78, 171, 247) solid;
+}
+
+
+.column-title{
+
+    flex: 0 0 auto;
+    resize:none;
+    margin-bottom: 10px;
+
+    background-color: transparent;
+    border: none;
+
+    height: 1.5em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+
+    padding: 0 10px;
+}
+
+.column-title:focus {
+
+    background-color: white;
 }
 
 
 .column-content{
 
-    flex: 1;
+    flex: 0 1 auto;
     overflow: auto;
 
     display: flex;
 
     flex-direction: column;
 
-    padding: 0px 5px 0px 0px;
-
+    padding: 0px 5px 10px 0px;
 
     gap: 10px;
+
+    min-height: 100px;
 }
 
 .card{
@@ -104,14 +151,30 @@ body{
     min-height: 150px;
     max-height: 200px;
     background-color: white;
-    border-radius: 20px;
-    box-shadow: #242424 3px 5px 5px 2px;
+    border-radius: 8px;
+    box-shadow: #091e424f 3px 5px 5px 2px;
     overflow: hidden;
 
     box-sizing: border-box;
     padding: 15px;
 
     position: relative;
+
+    user-select: none;
+
+}
+
+.card.ghost-card{
+
+    transform: rotate(5deg);
+}
+
+.ghost-card-parent{
+
+    position: absolute;
+
+    left: -1000px;
+    top: -1000px;
 }
 
 .card-color{
@@ -123,21 +186,63 @@ body{
 
     width: 10px;
     height: 100%;
-    background-color: green;
+    background-color: grey;
 }
+
+.card-color.red{
+    background-color: #fe5b59;
+}
+
+.card-color.orange{
+    background-color: #f7a547;
+}
+
+.card-color.yellow{
+    background-color: #f3ce52;
+}
+
+.card-color.green{
+    background-color: #6acd5b;
+}
+
+.card-color.blue{
+    background-color: #57b9f2;
+}
+
+.card-color.pink{
+    background-color: #d054e6;
+}
+
 
 .card h1{
 
     margin: 0px;
     color: black;
 
+    font-size: 1em;
+    
 }
 
 .add-column{
+
 
     flex: 0 0 auto;
     align-self: flex-start;
 
     cursor: pointer;
     border: white 2px solid;
+
+    border-radius: 8px;
+    padding: 10px;
+
+    transition: .2s ease-in-out;
+}
+
+
+.add-column:hover{
+
+    transition: .2s ease-in-out;
+
+    color: black;
+    background-color: white;
 }
