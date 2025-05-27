@@ -6,9 +6,9 @@ import {Column} from "./scripts/models/column"
 
 
 
-import {DOMboard} from "./scripts/dom/DOMboard"
-import {DOMColumn, InitialiseColumns} from "./scripts/dom/DOMcolumn"
-import {DOMCard, InitialiseCards, CardWrapper } from "./scripts/dom/DOMcard";
+import {DOMBoard} from "./scripts/dom/DOMBoard"
+import {DOMColumn, InitialiseColumns} from "./scripts/dom/DOMColumn"
+import {DOMCard, InitialiseCards, CardWrapper } from "./scripts/dom/DOMCard";
 
 const data = {
 
@@ -29,7 +29,7 @@ const createEmptyBoard = function(){
 
     const board = Board("New board");
 
-    const boardElement = DOMboard('New board');
+    const boardElement = DOMBoard('New board');
 
 
 

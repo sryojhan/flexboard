@@ -3,7 +3,7 @@
 const boardParent = document.querySelector('.board-container');
 
 
-const DOMboard = function(name){
+const DOMBoard = function(name){
 
 
     const boardElem = document.createElement('h1');
@@ -26,4 +26,4 @@ const DOMboard = function(name){
 }
 
 
-export {DOMboard};
+export {DOMBoard};
