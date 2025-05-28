@@ -1,11 +1,13 @@
 body{
 
-    background-color: #364865;
+    background: linear-gradient(#5c6779, #364865);
     color: white;
 
     margin: 0px;
 
     user-select: none;
+
+    font-family: monospace;
 }
 
 
@@ -101,32 +103,82 @@ body{
 
 }
 
-.column.dragover{
+.column.highlight{
 
     outline:3px rgb(78, 171, 247) solid;
 }
 
+.column-title, .column-title-editable{
 
-.column-title{
-
-    flex: 0 0 auto;
-    resize:none;
-    margin-bottom: 10px;
-
-    background-color: transparent;
-    border: none;
+    color: black;
+    font-weight: 400;
+    font-family: monospace;
 
     height: 1.5em;
     font-size: 1.5em;
     line-height: 1.5em;
 
+    margin: 0;
+
     padding: 0 10px;
+    box-sizing: border-box;
+
+    user-select: none;
+
+    width: 100%;
+
+    display: block;
 }
 
-.column-title:focus {
+.column-title{
+
+    cursor: grab;
+
+}
+
+.column-title-editable{
+
+    flex: 0 0 auto;
+    resize:none;
+
+    background-color: transparent;
+    border: none;
+    cursor: text;
+}
+
+.column-title.hidden, .column-title-editable.hidden{
+
+    display: none;
+}
+
+
+.column-title-editable:focus {
 
     background-color: white;
+    cursor: text;
 }
+
+
+.column-header{
+
+    width: 100%;
+    cursor: grab;
+
+    margin: -10px 0 10px;
+}
+
+.drag-image{
+
+    display: block;
+
+    width: 30px;
+    height: auto;
+
+    margin: 0px auto;
+    transform: rotate(90deg);
+
+}
+
 
 
 .column-content{
@@ -148,11 +200,10 @@ body{
 .card{
 
     width: 100%;
-    min-height: 150px;
     max-height: 200px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: #091e424f 3px 5px 5px 2px;
+    box-shadow: #091e424f 1px 3px 4px 1px;
     overflow: hidden;
 
     box-sizing: border-box;
@@ -162,9 +213,18 @@ body{
 
     user-select: none;
 
+    cursor: grab;
 }
 
-.card.ghost-card{
+.card-gap{
+
+    width: 100%;
+    
+
+}
+
+
+.ghost-card{
 
     transform: rotate(5deg);
 }
@@ -222,6 +282,25 @@ body{
     font-size: 1em;
     
 }
+
+
+.add-card{
+
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+
+    border: 2px transparent solid;
+
+    box-sizing: border-box;
+}
+
+.add-card:hover{
+
+    border: 2px black solid;
+    background-color: #ffffff;
+}
+
 
 .add-column{
 
