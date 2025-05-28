@@ -9,18 +9,21 @@ const DOMCard = (function () {
 
     let currentlyDraggedCard = null;
 
-    const CreateCardElement = function (columnContent) {
+    const CreateCardElement = function (columnContent, creationData) {
 
         const card = document.createElement('div');
         const color = document.createElement('div');
         const title = document.createElement('h1');
         const description = document.createElement('p');
 
-
         card.draggable = true;
         card.classList.add('card');
 
         color.classList.add('card-color');
+        color.classList.add(creationData.color);
+
+        title.textContent = creationData.title;
+        description.textContent = creationData.description;
 
         card.append(color);
         card.append(title);
@@ -28,8 +31,8 @@ const DOMCard = (function () {
 
         columnContent.append(card);
 
-        const cardData = CreateCard(card);
-        card.data = cardData;
+        card.data = CreateCard(card, creationData);
+         
 
         card.addEventListener('dragstart', (e) => {
 
@@ -37,7 +40,7 @@ const DOMCard = (function () {
             e.target.ghostCard = CreateGhostImage(e.target, e);
             e.target.gapElement = CreateGapElement(e.target);
 
-            e.dataTransfer.setData('flexboard/card', cardData.id);
+            e.dataTransfer.setData('flexboard/card', card.data.id);
 
 
             currentlyDraggedCard = e.target;
@@ -67,7 +70,7 @@ const DOMCard = (function () {
 
         card.addEventListener('dblclick', () => {
 
-            DOMModal.modal.OpenModal(cardData);
+            DOMModal.modal.OpenModal(card.data);
         });
 
         
@@ -75,7 +78,7 @@ const DOMCard = (function () {
         return card;
     }
 
-    const CreateCard = function (element) {
+    const CreateCard = function (element, creationData) {
 
         const id = crypto.randomUUID();
 
@@ -83,28 +86,10 @@ const DOMCard = (function () {
         const descriptionElement = element.querySelector('p');
         const colorElement = element.querySelector('.card-color');
 
-        const title = titleElement.textContent;
 
-        let description = "";
-        const paragraphElement = descriptionElement;
-
-        if (paragraphElement)
-            description = paragraphElement.textContent;
-
-
-        let color = 'red';
-
-        Array.from(colorElement.classList).forEach((cssClass) => {
-
-            if (cssClass !== 'card-color')
-                color = cssClass;
-        });
-
-
-        const card = { element, id, title, description, color };
-        cards.push(card);
-
-
+        const title = creationData.title;
+        const description = creationData.description;
+        const color = creationData.color;
 
         const UpdateElement = function () {
 
@@ -120,9 +105,13 @@ const DOMCard = (function () {
             colorElement.classList.add(card.color);
         }
 
+
+        
+        const card = { element, id, title, description, color };
         card.UpdateElement = UpdateElement;
 
 
+        cards.push(card);
         return card;
     }
 
@@ -180,7 +169,7 @@ const DOMCard = (function () {
     }
 
 
-    const UnappedCardGap = function () {
+    const UnAppedCardGap = function () {
 
         if (currentlyDraggedCard === null) return;
 
@@ -196,63 +185,8 @@ const DOMCard = (function () {
         onDragEnd = callback;
     }
 
-    const InitialiseData = (function () {
 
-        let cardsElements = document.querySelectorAll('.card');
-
-
-        cardsElements.forEach((card) => {
-
-            const cardData = CreateCard(card);
-
-
-            card.draggable = true;
-
-            card.addEventListener('dragstart', (e) => {
-
-
-                e.target.ghostCard = CreateGhostImage(e.target, e);
-                e.target.gapElement = CreateGapElement(e.target);
-
-                e.dataTransfer.setData('flexboard/card', cardData.id);
-
-
-                currentlyDraggedCard = e.target;
-            });
-
-            card.addEventListener('dragend', (e) => {
-
-                if (onDragEnd !== null) {
-
-                    onDragEnd();
-                }
-
-                if (e.target.ghostCard) {
-
-                    e.target.ghostCard.remove();
-                    e.target.ghostCard = null;
-                }
-
-                if (e.target.gapElement) {
-
-                    e.target.gapElement.remove();
-                    e.target.gapElement = null;
-                }
-
-                currentlyDraggedCard = null;
-            });
-
-            card.addEventListener('dblclick', () => {
-
-                DOMModal.modal.OpenModal(cardData);
-            });
-
-        });
-    })();
-
-
-
-    return { cards, FindCard, CalculateCardPositionIndex, AppendCardGapAtIndex, UnappedCardGap, SetDragEndCallback, CreateCardElement }
+    return { cards, FindCard, CalculateCardPositionIndex, AppendCardGapAtIndex, UnAppedCardGap, SetDragEndCallback, CreateCardElement }
 
 })();
 

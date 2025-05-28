@@ -67,6 +67,7 @@ body{
 
 }
 
+
 .content{
 
     width: 100%;
@@ -300,6 +301,11 @@ body{
 
 .purple{
     --main-modal-color: #d5bcfe !important;
+    background-color: var(--main-modal-color) !important; 
+}
+
+.grey{
+    --main-modal-color: grey !important;
     background-color: var(--main-modal-color) !important; 
 }
 

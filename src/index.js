@@ -1,6 +1,8 @@
 import "./styles.css";
 
-import { DOMFlexboard } from "./scripts/dom/DOMFlexboard";
+import "./scripts/dom/DOMFlexboard";
+
+
 import { DOMColumn } from "./scripts/dom/DOMColumn";
 import { DOMCard } from "./scripts/dom/DOMCard";
 
@@ -58,6 +60,53 @@ const cards = [
                 description: "Disable original card when draggin and the card gap is visible",
                 color: "yellow"
             },
+            {
+                title: "Remove cards",
+                description: "",
+                color: "red"
+            },
+            {
+                title: "Remove columns",
+                description: "",
+                color: "red"
+            },
+
+            {
+                title: "Center save button",
+                description: "",
+                color: "yellow"
+            },
+            {
+                title: "Create cancel button when editing",
+                description: "",
+                color: "yellow"
+            },
+            {
+                title: "Remove done button from view",
+                description: "Maybe just add an x at the top right",
+                color: "yellow"
+            },
+            
+        ]
+    },
+    {
+        name: "Sprint",
+        cards: [
+            {
+                title: "Insultar a Dani",
+                description: "",
+                color: "blue"
+            },
+            {
+                title: "Insultar a Dani pero en rojo",
+                description: "",
+                color: "red"
+            },
+            {
+                title: "Dios es que que mal que me cae Dani",
+                description: "AAAAAAAAAAAAAAAAAAAAA",
+                color: "purple"
+            },
         ]
     }
 ]
@@ -66,11 +115,22 @@ const cards = [
 
 cards.forEach((columns, idx) => {
 
+    const colData = DOMColumn.CreateColumnElement(columns.name).data;
+
+    const col = DOMColumn.ColumnContent(colData);
+
     columns.cards.forEach((data) => {
 
-        const col = DOMColumn.columns[idx].DOMElements.content;
-        DOMFlexboard.CreateCard(data, col);
+
+        DOMCard.CreateCardElement(col, data);
     });
-
-
 });
+
+
+const Serialize = function(){
+
+    const cols = DOMColumn.columns;
+    const cards = DOMCard.cards;
+
+}
+

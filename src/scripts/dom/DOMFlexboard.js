@@ -13,20 +13,10 @@ const DOMFlexboard = (function () {
     DOMCard.SetDragEndCallback(() => {
 
         DOMColumn.ClearHighlight();
-        DOMCard.UnappedCardGap();
+        DOMCard.UnAppedCardGap();
     });
 
 
-    const CreateCard = function (card, column) {
-
-        const cardData = DOMCard.CreateCardElement(column).data;
-
-        cardData.title = card.title;
-        cardData.description = card.description;
-        cardData.color = card.color;
-
-        cardData.UpdateElement();
-    }
 
 
     const DragAndDrop = (function () {
@@ -75,7 +65,7 @@ const DOMFlexboard = (function () {
                 const contentElement = DOMColumn.ColumnContent(newColumn);
 
 
-                DOMCard.UnappedCardGap();
+                DOMCard.UnAppedCardGap();
                 const insertIdx = DOMCard.CalculateCardPositionIndex(contentElement, e.clientY);
 
                 contentElement.insertBefore(card.element, contentElement.children[insertIdx]);
@@ -90,11 +80,11 @@ const DOMFlexboard = (function () {
 
 
 
-    return {CreateCard}
+    return {}
 
 
 })();
 
 
 
-export {DOMFlexboard};
+export default DOMFlexboard;

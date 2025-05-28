@@ -81,7 +81,7 @@ const DOMModal = (function(){
     const editTitle = document.querySelector("#name");
     const editDescription = document.querySelector("#description");
 
-    const colors = ['green', 'yellow', 'orange', 'red', 'blue', 'turqoise', 'purple', 'pink'];
+    const colors = ['green', 'yellow', 'orange', 'red', 'blue', 'turqoise', 'purple', 'pink', 'grey'];
 
     const OpenEditModal = function (card) {
 

@@ -3,16 +3,111 @@ import { CreateGhostImage } from "./DOMUtils";
 import { DOMCard } from "./DOMCard";
 import { DOMModal } from "./DOMModal";
 
+import dragHandle from"./../../images/drag-handle.svg";
+
+
 const DOMColumn = (function () {
 
 
     const columns = [];
 
+    const parentContent = document.querySelector('.content');
 
-    const CreateColumnElement = function () {
+    const CreateColumnElement = function (name) {
 
 
+        const column = document.createElement('div');
+        column.classList.add('column');
 
+            const header = document.createElement('div');
+            header.classList.add('column-header');
+            header.draggable = true;
+
+                const dragImage = document.createElement('img');
+                dragImage.classList.add('drag-image');
+                dragImage.draggable = false;
+                dragImage.src = dragHandle;
+                dragImage.width = 30;
+
+                const title = document.createElement('h2');
+                title.classList.add('column-title');
+                title.textContent = name;
+
+                const titleEditable = document.createElement('textarea');
+                titleEditable.classList.add('column-title-editable');
+                titleEditable.classList.add('hidden');
+                titleEditable.spellcheck = false;
+                titleEditable.value = name;
+
+            header.append(dragImage);
+            header.append(title);
+            header.append(titleEditable);
+
+
+            const scrollArea = document.createElement('div');
+            scrollArea.classList.add('column-scroll-area');
+                const content = document.createElement('div');
+                content.classList.add('column-content');
+                const addCard = document.createElement('div');
+                addCard.classList.add('add-card');
+                addCard.textContent = "+ Add new card";
+
+            scrollArea.append(content);
+            scrollArea.append(addCard);
+
+
+        column.append(header);
+        column.append(scrollArea);
+
+
+    
+        header.addEventListener('dragstart', (e) => {
+
+
+            e.target.ghostImage = CreateGhostImage(col, e);
+
+        });
+
+        header.addEventListener('dragend', (e) => {
+
+            if(e.target.ghostImage){
+
+                e.target.ghostImage.remove();
+                e.target.ghostImage = null;
+            }
+
+        });
+
+        
+        title.addEventListener('mouseup', () => {
+
+            title.classList.add('hidden');
+            titleEditable.classList.remove('hidden');
+            titleEditable.focus();
+
+        });
+
+
+        titleEditable.addEventListener('blur', ()=>{
+
+            title.classList.remove('hidden');
+            titleEditable.classList.add('hidden');
+        })
+
+    
+        addCard.addEventListener('click', (e)=>{
+
+            const emptyCardData = {title: "", description: "", color: "grey"};
+            const card = DOMCard.CreateCardElement(content, emptyCardData);
+            DOMModal.editModal.OpenEditModal(card.data);
+        });
+
+
+        column.data = CreateColumn({column, header, content});
+
+
+        parentContent.append(column);
+        return column;
     }
 
     const CreateColumn = function (DOMElements) {
@@ -69,73 +164,7 @@ const DOMColumn = (function () {
     }
 
 
-    const InitialiseData = (function () {
-
-
-        let columnsElements = document.querySelectorAll('.column');
-
-        columnsElements.forEach((col) => {
-
-
-            const header = col.querySelector('.column-header');
-            header.draggable = true;
-
-            header.addEventListener('dragstart', (e) => {
-
-
-                e.target.ghostImage = CreateGhostImage(col, e);
-
-            });
-
-            header.addEventListener('dragend', (e) => {
-
-                if(e.target.ghostImage){
-
-                    e.target.ghostImage.remove();
-                    e.target.ghostImage = null;
-                }
-
-            });
-
-
-            const text = col.querySelector('.column-title');
-            const textEditable = col.querySelector('.column-title-editable');
-
-            
-            text.addEventListener('mouseup', () => {
-
-                text.classList.add('hidden');
-                textEditable.classList.remove('hidden');
-                textEditable.focus();
-
-            });
-
-
-            textEditable.addEventListener('blur', ()=>{
-
-                text.classList.remove('hidden');
-                textEditable.classList.add('hidden');
-            })
-
-            const content = col.querySelector('.column-content');
-
-
-            CreateColumn({ column: col, header, content });
-
-
-            const createCardButton = col.querySelector('.add-card');
-            createCardButton.addEventListener('click', (e)=>{
-
-                const card = DOMCard.CreateCardElement(content);
-                DOMModal.editModal.OpenEditModal(card.data);
-            });
-
-        });
-
-    })();
-
-
-    return {columns, GetMaxColumnPosition, ClearHighlight, HighlightColumn, ColumnContent};
+    return {columns, GetMaxColumnPosition, ClearHighlight, HighlightColumn, ColumnContent, CreateColumnElement};
 
 })();
 
