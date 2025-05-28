@@ -97,7 +97,7 @@ const DOMSerializer = (function () {
 
         if(stringData === null)
         {
-            dataToLoad = cards;
+            dataToLoad = defaultData;
         }
         else{
 
