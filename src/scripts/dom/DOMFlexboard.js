@@ -3,18 +3,30 @@ import { DOMBoard } from "./DOMBoard"
 import { DOMColumn } from "./DOMColumn"
 import { DOMCard } from "./DOMCard";
 
-const FlexboardManager = (function () {
+const DOMFlexboard = (function () {
 
 
 
     const content = document.querySelector('.content');
 
 
-    DOMCard.SetDragEndCallback(()=>{
+    DOMCard.SetDragEndCallback(() => {
 
         DOMColumn.ClearHighlight();
         DOMCard.UnappedCardGap();
     });
+
+
+    const CreateCard = function (card, column) {
+
+        const cardData = DOMCard.CreateCardElement(column).data;
+
+        cardData.title = card.title;
+        cardData.description = card.description;
+        cardData.color = card.color;
+
+        cardData.UpdateElement();
+    }
 
 
     const DragAndDrop = (function () {
@@ -43,7 +55,7 @@ const FlexboardManager = (function () {
 
             }
 
-            else{
+            else {
 
                 console.log("hubo un problema");
             }
@@ -62,7 +74,7 @@ const FlexboardManager = (function () {
                 const newColumn = DOMColumn.GetMaxColumnPosition(e.clientX);
                 const contentElement = DOMColumn.ColumnContent(newColumn);
 
-                
+
                 DOMCard.UnappedCardGap();
                 const insertIdx = DOMCard.CalculateCardPositionIndex(contentElement, e.clientY);
 
@@ -78,11 +90,11 @@ const FlexboardManager = (function () {
 
 
 
-
+    return {CreateCard}
 
 
 })();
 
 
 
-export default FlexboardManager;
+export {DOMFlexboard};

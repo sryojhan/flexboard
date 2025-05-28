@@ -85,6 +85,8 @@ const DOMModal = (function(){
 
     const OpenEditModal = function (card) {
 
+        console.log(card);
+
         lastCard = card;
         edit_modalBackground.classList.remove('hidden');
 

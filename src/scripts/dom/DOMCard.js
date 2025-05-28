@@ -9,8 +9,70 @@ const DOMCard = (function () {
 
     let currentlyDraggedCard = null;
 
-    const CreateCardElement = function () {
+    const CreateCardElement = function (columnContent) {
 
+        const card = document.createElement('div');
+        const color = document.createElement('div');
+        const title = document.createElement('h1');
+        const description = document.createElement('p');
+
+
+        card.draggable = true;
+        card.classList.add('card');
+
+        color.classList.add('card-color');
+
+        card.append(color);
+        card.append(title);
+        card.append(description);
+
+        columnContent.append(card);
+
+        const cardData = CreateCard(card);
+        card.data = cardData;
+
+        card.addEventListener('dragstart', (e) => {
+
+
+            e.target.ghostCard = CreateGhostImage(e.target, e);
+            e.target.gapElement = CreateGapElement(e.target);
+
+            e.dataTransfer.setData('flexboard/card', cardData.id);
+
+
+            currentlyDraggedCard = e.target;
+        });
+
+        card.addEventListener('dragend', (e) => {
+
+            if (onDragEnd !== null) {
+
+                onDragEnd();
+            }
+
+            if (e.target.ghostCard) {
+
+                e.target.ghostCard.remove();
+                e.target.ghostCard = null;
+            }
+
+            if (e.target.gapElement) {
+
+                e.target.gapElement.remove();
+                e.target.gapElement = null;
+            }
+
+            currentlyDraggedCard = null;
+        });
+
+        card.addEventListener('dblclick', () => {
+
+            DOMModal.modal.OpenModal(cardData);
+        });
+
+        
+
+        return card;
     }
 
     const CreateCard = function (element) {
@@ -190,7 +252,7 @@ const DOMCard = (function () {
 
 
 
-    return { cards, FindCard, CalculateCardPositionIndex, AppendCardGapAtIndex, UnappedCardGap, SetDragEndCallback }
+    return { cards, FindCard, CalculateCardPositionIndex, AppendCardGapAtIndex, UnappedCardGap, SetDragEndCallback, CreateCardElement }
 
 })();
 

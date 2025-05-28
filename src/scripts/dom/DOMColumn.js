@@ -1,6 +1,7 @@
 
 import { CreateGhostImage } from "./DOMUtils";
-
+import { DOMCard } from "./DOMCard";
+import { DOMModal } from "./DOMModal";
 
 const DOMColumn = (function () {
 
@@ -120,6 +121,15 @@ const DOMColumn = (function () {
 
 
             CreateColumn({ column: col, header, content });
+
+
+            const createCardButton = col.querySelector('.add-card');
+            createCardButton.addEventListener('click', (e)=>{
+
+                const card = DOMCard.CreateCardElement(content);
+                DOMModal.editModal.OpenEditModal(card.data);
+            });
+
         });
 
     })();
