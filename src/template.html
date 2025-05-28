@@ -52,15 +52,28 @@
                         <div class="column-content">
 
 
-                            <div class="card"><div class="card-color red"></div><h1>Cosa seria e importante</h1></div>
-
-                            <div class="card"><div class="card-color yellow"></div>
-                            <h1>BIG CARD</h1>
-                            <p>This is a very very big card with a very very big description hell yeah</p>
+                            <div class="card">
+                                <div class="card-color red"></div>
+                                <h1>Cosa seria e importante</h1>
+                                <p></p>
                             </div>
 
-                            <div class="card"><div class="card-color pink"></div><h1>Hacer esa cosa</h1></div>
-                            <div class="card"><div class="card-color pink"></div><h1>Y hacer esa otra cosa</h1></div>
+                            <div class="card">
+                                <div class="card-color yellow"></div>
+                                <h1>BIG CARD</h1>
+                                <p>This is a very very big card with a very very big description hell yeah</p>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-color pink"></div>
+                                <h1>Hacer esa cosa</h1>
+                                <p></p>
+                            </div>
+                            <div class="card">
+                                <div class="card-color pink"></div>
+                                <h1>Y hacer esa otra cosa</h1>
+                                <p></p>
+                            </div>
 
                         </div>
 
@@ -85,19 +98,43 @@
 
                         <div class="column-content">
 
-                            <div class="card"><div class="card-color red"></div><h1>Business</h1></div>
+                            <div class="card">
+                                <div class="card-color red"></div>
+                                <h1>Business</h1>
+                                <p></p>
+                            </div>
 
-                            <div class="card"><div class="card-color blue"></div><h1>Tarea numero 1</h1></div>
-                            <div class="card"> <div class="card-color blue"></div><h1>Tarea numero 2</h1></div>
+                            <div class="card">
+                                <div class="card-color blue"></div>
+                                <h1>Tarea numero 1</h1>
+                                <p></p>
+                            </div>
+                            <div class="card">
+                                <div class="card-color blue"></div>
+                                <h1>Tarea numero 2</h1>
+                                <p></p>
+                            </div>
 
 
-                            <div class="card"><div class="card-color green"></div><h1>Tarea numero 3</h1></div>
-                            <div class="card"><div class="card-color green"></div><h1>Tarea numero 4</h1></div>
+                            <div class="card">
+                                <div class="card-color green"></div>
+                                <h1>Tarea numero 3</h1>
+                                <p></p>
+                            </div>
+                            <div class="card">
+                                <div class="card-color green"></div>
+                                <h1>Tarea numero 4</h1>
+                                <p></p>
+                            </div>
 
-                            <div class="card"><div class="card-color blue"></div><h1>Tarea numero 5</h1></div>
+                            <div class="card">
+                                <div class="card-color blue"></div>
+                                <h1>Tarea numero 5</h1>
+                                <p></p>
+                            </div>
 
                         </div>
-                        
+
                         <div class="add-card">+ Add new card</div>
 
                     </div>
@@ -118,9 +155,23 @@
                     <div class="column-scroll-area">
                         <div class="column-content">
 
-                            <div class="card"><div class="card-color orange"></div><h1>Hola a todos</h1></div>
-                            <div class="card"><div class="card-color orange"></div><h1>Menos a Dani</h1></div>
-                            <div class="card"><div class="card-color green"></div><h1>hehehe</h1></div>
+                            <div class="card">
+                                <div class="card-color orange"></div>
+                                <h1>Hola a todos</h1>
+                                <p></p>
+                            </div>
+                            <div class="card">
+                                <div class="card-color orange"></div>
+                                <h1>Menos a Dani</h1>
+                                <p></p>
+                            </div>
+                            <div class="card">
+                                <div class="card-color green"></div>
+                                <h1>hehehe</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, ducimus qui? Quia, minima quis consequuntur quisquam rem expedita ipsa debitis voluptates aspernatur dolor, explicabo numquam. Rerum nemo aperiam aliquam repellendus.
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis praesentium cupiditate quisquam eligendi illum officia beatae laborum itaque nisi, reiciendis quae doloremque incidunt vel explicabo nulla maxime, doloribus fugiat similique.
+                                </p>
+                            </div>
 
                         </div>
 
@@ -136,15 +187,72 @@
             </div>
 
 
-            <div class="card-edit-modal">
+
+        </div>
+
+
+
+
+        <div class="modal-background card-edit hidden">
+            <div class="modal card-edit">
+
+                <h1>Edit card information</h1>
+
+
+
+                    <div class="input">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" autocomplete="off">
+                    </div>
+
+                    <div class="input">
+                        <label for="description">Description</label>
+                        <textarea class="description" type="text" name="description" id="description"
+                        rows="3"></textarea>
+                    </div>
+
+
+                    <div class="color-selector">
+
+                        <button type="button" class="color-selector-button green"></button>
+                        <button type="button" class="color-selector-button yellow"></button>
+                        <button type="button" class="color-selector-button orange"></button>
+                        <button type="button" class="color-selector-button red"></button>
+
+                        <button type="button" class="color-selector-button blue"></button>
+                        <button type="button" class="color-selector-button turqoise"></button>
+                        <button type="button" class="color-selector-button purple"></button>
+                        <button type="button" class="color-selector-button pink"></button>
+
+                    </div>
+
+                    <button class="modal-button" id="save-button" type="button">Save</button>
 
 
 
             </div>
-
-
-
         </div>
+
+
+        
+
+        <div class="modal-background card-show hidden">
+            <div class="modal card-show">
+
+                <h1 id="card-title-show">Example card title</h1>
+
+                <p id="card-description-show">Esta es la descripcion de mi tarjeta todo poderosa</p>
+
+
+                <div class="buttons">
+
+                    <button class="modal-button" id="show-modal-done" type="button">Done</button>
+                    <button class="modal-button" id="show-modal-edit" type="button">Edit</button>
+                </div>
+
+            </div>
+        </div>
+
 
 
     </div>

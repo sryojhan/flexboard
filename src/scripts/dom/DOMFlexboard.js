@@ -3,7 +3,6 @@ import { DOMBoard } from "./DOMBoard"
 import { DOMColumn } from "./DOMColumn"
 import { DOMCard } from "./DOMCard";
 
-
 const FlexboardManager = (function () {
 
 
@@ -64,6 +63,7 @@ const FlexboardManager = (function () {
                 const contentElement = DOMColumn.ColumnContent(newColumn);
 
                 
+                DOMCard.UnappedCardGap();
                 const insertIdx = DOMCard.CalculateCardPositionIndex(contentElement, e.clientY);
 
                 contentElement.insertBefore(card.element, contentElement.children[insertIdx]);

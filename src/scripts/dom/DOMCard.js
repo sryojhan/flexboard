@@ -1,6 +1,7 @@
 
 import { CreateGhostImage } from "./DOMUtils";
 
+import { DOMModal } from "./DOMModal";
 
 const DOMCard = (function () {
 
@@ -14,11 +15,51 @@ const DOMCard = (function () {
 
     const CreateCard = function (element) {
 
-
         const id = crypto.randomUUID();
 
-        const card = { element, id };
+        const titleElement = element.querySelector('h1');
+        const descriptionElement = element.querySelector('p');
+        const colorElement = element.querySelector('.card-color');
+
+        const title = titleElement.textContent;
+
+        let description = "";
+        const paragraphElement = descriptionElement;
+
+        if (paragraphElement)
+            description = paragraphElement.textContent;
+
+
+        let color = 'red';
+
+        Array.from(colorElement.classList).forEach((cssClass) => {
+
+            if (cssClass !== 'card-color')
+                color = cssClass;
+        });
+
+
+        const card = { element, id, title, description, color };
         cards.push(card);
+
+
+
+        const UpdateElement = function () {
+
+            titleElement.textContent = card.title;
+            descriptionElement.textContent = card.description;
+
+            Array.from(colorElement.classList).forEach((cssClass) => {
+
+                if (cssClass !== 'card-color')
+                    colorElement.classList.remove(cssClass);
+            });
+
+            colorElement.classList.add(card.color);
+        }
+
+        card.UpdateElement = UpdateElement;
+
 
         return card;
     }
@@ -70,25 +111,25 @@ const DOMCard = (function () {
 
         const gapElement = currentlyDraggedCard.gapElement;
         if (gapElement.parentElement !== null && gapElement.parentElement === columnElement && Array.from(gapElement.parentElement.children).indexOf(gapElement) === idx) {
-                return;
+            return;
         }
         const cardsElemnents = columnElement.querySelectorAll('.card');
         columnElement.insertBefore(gapElement, cardsElemnents[idx]);
     }
 
 
-    const UnappedCardGap = function(){
+    const UnappedCardGap = function () {
 
-        if(currentlyDraggedCard === null) return;
+        if (currentlyDraggedCard === null) return;
 
         const gapElement = currentlyDraggedCard.gapElement;
         gapElement.remove();
     }
 
-    
+
     let onDragEnd = null;
 
-    const SetDragEndCallback = function(callback){
+    const SetDragEndCallback = function (callback) {
 
         onDragEnd = callback;
     }
@@ -119,8 +160,7 @@ const DOMCard = (function () {
 
             card.addEventListener('dragend', (e) => {
 
-                console.log(onDragEnd);
-                if(onDragEnd !== null){
+                if (onDragEnd !== null) {
 
                     onDragEnd();
                 }
@@ -140,8 +180,15 @@ const DOMCard = (function () {
                 currentlyDraggedCard = null;
             });
 
+            card.addEventListener('dblclick', () => {
+
+                DOMModal.modal.OpenModal(cardData);
+            });
+
         });
     })();
+
+
 
     return { cards, FindCard, CalculateCardPositionIndex, AppendCardGapAtIndex, UnappedCardGap, SetDragEndCallback }
 
