@@ -21,25 +21,6 @@ body{
     height: 100vh;
 }
 
-
-.custom-menu{
-
-    position: absolute;
-    background-color: red;
-
-    top: 250px;
-    left: 100px;
-
-    user-select: none;
-    cursor: pointer;
-}
-
-.custom-menu-option{
-
-    padding: 10px;
-    box-sizing: border-box;
-}
-
 .custom-menu-option:hover{
 
     background-color: green;
@@ -55,6 +36,26 @@ body{
     padding: 10px;
     box-sizing: border-box;
 
+}
+
+.left-banner.hidden{
+
+    min-width: 40px;
+    flex: 0 0 40px;
+
+    padding: 0px;
+    overflow: hidden;
+}
+
+.left-banner.hidden *{
+
+    text-align: center;
+}
+
+.left-banner.hidden *:hover{
+
+
+    background-color: grey;
 }
 
 .viewport{
@@ -80,6 +81,7 @@ body{
     box-sizing: border-box;
     padding: 10px;
 
+    position: relative;
 }
 
 .column{
@@ -179,12 +181,14 @@ body{
 
 }
 
+.column-scroll-area{
 
+    overflow: auto;
+}
 
 .column-content{
 
     flex: 0 1 auto;
-    overflow: auto;
 
     display: flex;
 
@@ -219,8 +223,11 @@ body{
 .card-gap{
 
     width: 100%;
-    
-
+    height: 50px;
+    border-radius: 8px;
+    background-color: rgb(201, 201, 201);
+    background-color: #d1d2d3;
+    border: none;
 }
 
 
@@ -254,11 +261,11 @@ body{
 }
 
 .card-color.orange{
-    background-color: #f7a547;
+    background-color: #f39121;
 }
 
 .card-color.yellow{
-    background-color: #f3ce52;
+    background-color: #fcd863;
 }
 
 .card-color.green{
@@ -270,7 +277,7 @@ body{
 }
 
 .card-color.pink{
-    background-color: #d054e6;
+    background-color: #ef92ff;
 }
 
 
@@ -280,9 +287,15 @@ body{
     color: black;
 
     font-size: 1em;
-    
 }
 
+.card p{
+    
+    margin: 0px;
+    color: black;
+
+    font-size: 1em;
+}
 
 .add-card{
 
@@ -293,6 +306,7 @@ body{
     border: 2px transparent solid;
 
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .add-card:hover{
@@ -324,4 +338,12 @@ body{
 
     color: black;
     background-color: white;
+}
+
+
+
+.card-edit-modal{
+
+    background-color: black;
+
 }

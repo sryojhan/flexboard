@@ -1,25 +1,21 @@
 
 import { DOMBoard } from "./DOMBoard"
-import { DOMColumn, InitialiseColumns } from "./DOMColumn"
-import { DOMCard, InitialiseCards, CardWrapper } from "./DOMCard";
+import { DOMColumn } from "./DOMColumn"
+import { DOMCard } from "./DOMCard";
 
 
 const FlexboardManager = (function () {
 
 
-    let currentlySelected = CardWrapper();
-
-    //InitialiseCards(currentlySelected);
-    //InitialiseColumns(currentlySelected);
-
 
     const content = document.querySelector('.content');
 
 
-    const CalculateCardPosition = function (columnElement, yPosition) {
+    DOMCard.SetDragEndCallback(()=>{
 
-
-    }
+        DOMColumn.ClearHighlight();
+        DOMCard.UnappedCardGap();
+    });
 
 
     const DragAndDrop = (function () {
@@ -27,22 +23,31 @@ const FlexboardManager = (function () {
 
         content.addEventListener('dragover', (e) => {
 
+            e.preventDefault();
 
 
             if (e.dataTransfer.types.includes('flexboard/card')) {
 
-
                 DOMColumn.ClearHighlight();
-                DOMColumn.GetMaxColumnPosition(e.clientX);
-                CalculateCardPosition(DOMColumn, e.clientY);
-                e.preventDefault();
+
+                const selectedColumn = DOMColumn.GetMaxColumnPosition(e.clientX);
+                DOMColumn.HighlightColumn(selectedColumn);
+
+                const columnContent = DOMColumn.ColumnContent(selectedColumn);
+
+                const insertIdx = DOMCard.CalculateCardPositionIndex(columnContent, e.clientY);
+
+                DOMCard.AppendCardGapAtIndex(columnContent, insertIdx);
 
 
             } else if (e.dataTransfer.types.includes('flexboard/column')) {
 
-                e.preventDefault();
             }
 
+            else{
+
+                console.log("hubo un problema");
+            }
 
 
         });
@@ -56,15 +61,15 @@ const FlexboardManager = (function () {
 
                 const card = DOMCard.FindCard(id);
                 const newColumn = DOMColumn.GetMaxColumnPosition(e.clientX);
+                const contentElement = DOMColumn.ColumnContent(newColumn);
 
+                
+                const insertIdx = DOMCard.CalculateCardPositionIndex(contentElement, e.clientY);
 
-                const contentElement = newColumn.DOMElements.content;
-                contentElement.insertBefore(card.element, contentElement.lastElementChild);
+                contentElement.insertBefore(card.element, contentElement.children[insertIdx]);
 
-                console.log(id);
             }
 
-            DOMColumn.ClearHighlight();
 
         });
 

@@ -54,10 +54,18 @@ const DOMColumn = (function () {
             return max;
         });
 
-        max.DOMElements.column.classList.add('highlight');
         return max;
     }
 
+    const HighlightColumn = function(col){
+
+        col.DOMElements.column.classList.add('highlight');
+    }
+
+    const ColumnContent = function(col){
+
+        return col.DOMElements.content;
+    }
 
 
     const InitialiseData = (function () {
@@ -117,7 +125,7 @@ const DOMColumn = (function () {
     })();
 
 
-    return {columns, GetMaxColumnPosition, ClearHighlight};
+    return {columns, GetMaxColumnPosition, ClearHighlight, HighlightColumn, ColumnContent};
 
 })();
 
