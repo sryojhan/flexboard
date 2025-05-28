@@ -108,10 +108,18 @@ body{
     border-radius: 8px;
     padding: 10px 7px;
 
+    max-width: 300px;
     max-height: 100%;
 
-
+    transition: transform .2s ease-out;
 }
+
+.column:has(.column-header:hover):has(.column-title:not(:hover)){
+
+    transform: translateY(-3px);
+}
+
+
 
 .column.highlight{
 
@@ -144,6 +152,9 @@ body{
 
     cursor: grab;
 
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .column-title-editable{
@@ -206,7 +217,6 @@ body{
 
     gap: 10px;
 
-    min-height: 100px;
 }
 
 .card{
@@ -221,11 +231,26 @@ body{
     box-sizing: border-box;
     padding: 15px;
 
+
     position: relative;
 
     user-select: none;
 
     cursor: grab;
+
+    --hover-transition-mode: ease-out;
+    --hover-transiton-time: .2s;
+    --hover-transiton-return-time: .3s;
+    --hover-delay: .1s;
+
+    transition: padding-right var(--hover-transiton-return-time) var(--hover-transition-mode) var(--hover-delay), transform var(--hover-transiton-return-time) var(--hover-transition-mode) var(--hover-delay);
+}
+
+.card:hover{
+    transform:translateY(-2px);
+
+    transition: padding-right var(--hover-transiton-time) var(--hover-transition-mode), transform var(--hover-transiton-time) (--hover-transition-mode);
+
 }
 
 .card-gap{
@@ -262,6 +287,9 @@ body{
     width: 10px;
     height: 100%;
     background-color: grey;
+
+    transition: var(--hover-transiton-return-time) var(--hover-transition-mode) var(--hover-delay);
+
 }
 
 .red{
@@ -310,21 +338,50 @@ body{
 }
 
 
+
+
 .card h1{
 
     margin: 0px;
     color: black;
 
     font-size: 1em;
+    margin-right: 10px;
+
+    transition: var(--hover-transiton-return-time) var(--hover-transition-mode) var(--hover-delay);
+
+}
+
+.card:hover .card-color{
+
+    width: 20px;
+    margin-right: 0px;
+    transition: var(--hover-transiton-time) var(--hover-transition-mode);
+}
+
+.card:hover h1, .card:hover p{
+
+    margin-left: 10px;
+    margin-right: 0px;
+
+    transition: var(--hover-transiton-time) var(--hover-transition-mode);
 }
 
 .card p{
     
     margin: 0px;
+    margin-right: 10px;
     color: black;
 
     font-size: 1em;
+
+    overflow: auto;
+    overflow-wrap: break-word;
+
+    transition: var(--hover-transiton-return-time) var(--hover-transition-mode) var(--hover-delay);
 }
+
+
 
 .add-card{
 
@@ -436,6 +493,8 @@ body{
 
 .modal p{
 
+    overflow: auto;
+    overflow-wrap: break-word;
     font-size: 1.4em;
 }
 

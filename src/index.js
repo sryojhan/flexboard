@@ -1,10 +1,8 @@
 import "./styles.css";
 
 import "./scripts/dom/DOMFlexboard";
+import { DOMSerializer } from "./scripts/dom/DOMSerializer";
 
-
-import { DOMColumn } from "./scripts/dom/DOMColumn";
-import { DOMCard } from "./scripts/dom/DOMCard";
 
 
 const leftBanner = document.querySelector('.left-banner');
@@ -15,31 +13,17 @@ leftBanner.addEventListener('dblclick', () => {
 })
 
 
-
 const cards = [
     {
         name: "Pending",
         cards: [
-            {
-                title: "save columns names",
-                description: "",
-                color: "red"
-            },
+            
             {
                 title: "Columns must be movable",
                 description: "",
                 color: "red"
             },
-            {
-                title: "Create new cards",
-                description: "Donete",
-                color: "green"
-            },
-            {
-                title: "Create new columns",
-                description: "",
-                color: "red"
-            },
+            
             {
                 title: "Serialize data",
                 description: "",
@@ -86,51 +70,58 @@ const cards = [
                 description: "Maybe just add an x at the top right",
                 color: "yellow"
             },
+           
             
         ]
     },
+
     {
-        name: "Sprint",
+        name: "Hate",
         cards: [
             {
-                title: "Insultar a Dani",
+                title: "Insultar a Iván",
                 description: "",
                 color: "blue"
             },
             {
-                title: "Insultar a Dani pero en rojo",
+                title: "Insultar a Iván pero en rojo",
                 description: "",
                 color: "red"
             },
             {
-                title: "Dios es que que mal que me cae Dani",
-                description: "AAAAAAAAAAAAAAAAAAAAA",
+                title: "Dios es que que mal que me cae Iván",
+                description: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 color: "purple"
             },
         ]
-    }
+    },
+
+    {
+        name: "Complete",
+        cards: [
+            {
+                title: "Create new cards",
+                description: "Donete",
+                color: "green"
+            },
+            {
+                title: "Create new columns",
+                description: "",
+                color: "green"
+            },
+            {
+                title: "save columns names",
+                description: "",
+                color: "green"
+            }, 
+            {
+                title: "Description overflow",
+                description: "",
+                color: "green"
+            },
+        ]
+    },
+
 ]
 
-
-
-cards.forEach((columns, idx) => {
-
-    const colData = DOMColumn.CreateColumnElement(columns.name).data;
-
-    const col = DOMColumn.ColumnContent(colData);
-
-    columns.cards.forEach((data) => {
-
-
-        DOMCard.CreateCardElement(col, data);
-    });
-});
-
-
-const Serialize = function(){
-
-    const cols = DOMColumn.columns;
-    const cards = DOMCard.cards;
-
-}
-
+DOMSerializer.Load(cards);

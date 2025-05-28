@@ -1,3 +1,4 @@
+import { DOMSerializer } from "./DOMSerializer";
 
 
 const DOMModal = (function(){
@@ -106,6 +107,9 @@ const DOMModal = (function(){
         lastCard.color = colors[currentlySelectedColor];
 
         lastCard.UpdateElement();
+
+
+        DOMSerializer.Save();
     }
 
 

@@ -2,6 +2,7 @@
 import { DOMBoard } from "./DOMBoard"
 import { DOMColumn } from "./DOMColumn"
 import { DOMCard } from "./DOMCard";
+import { DOMSerializer } from "./DOMSerializer";
 
 const DOMFlexboard = (function () {
 
@@ -70,6 +71,8 @@ const DOMFlexboard = (function () {
 
                 contentElement.insertBefore(card.element, contentElement.children[insertIdx]);
 
+
+                DOMSerializer.Save();
             }
 
 

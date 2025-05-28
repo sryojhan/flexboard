@@ -3,7 +3,8 @@ import { CreateGhostImage } from "./DOMUtils";
 import { DOMCard } from "./DOMCard";
 import { DOMModal } from "./DOMModal";
 
-import dragHandle from"./../../images/drag-handle.svg";
+import dragHandle from "./../../images/drag-handle.svg";
+import { DOMSerializer } from "./DOMSerializer";
 
 
 const DOMColumn = (function () {
@@ -13,64 +14,80 @@ const DOMColumn = (function () {
 
     const parentContent = document.querySelector('.content');
 
+    const addColumnButton = parentContent.querySelector('.add-column');
+
+    addColumnButton.addEventListener('click', ()=>{
+
+        const col = CreateColumnElement("");    
+
+        const tittle = col.querySelector('.column-title');
+        const tittleEditble = col.querySelector('.column-title-editable');
+
+        tittle.classList.add('hidden');
+        tittleEditble.classList.remove('hidden');
+        tittleEditble.focus();
+
+    });
+
     const CreateColumnElement = function (name) {
 
 
         const column = document.createElement('div');
         column.classList.add('column');
 
-            const header = document.createElement('div');
-            header.classList.add('column-header');
-            header.draggable = true;
+        const header = document.createElement('div');
+        header.classList.add('column-header');
+        header.draggable = true;
 
-                const dragImage = document.createElement('img');
-                dragImage.classList.add('drag-image');
-                dragImage.draggable = false;
-                dragImage.src = dragHandle;
-                dragImage.width = 30;
+        const dragImage = document.createElement('img');
+        dragImage.classList.add('drag-image');
+        dragImage.draggable = false;
+        dragImage.src = dragHandle;
+        dragImage.width = 30;
 
-                const title = document.createElement('h2');
-                title.classList.add('column-title');
-                title.textContent = name;
+        const title = document.createElement('h2');
+        title.classList.add('column-title');
+        title.textContent = name;
 
-                const titleEditable = document.createElement('textarea');
-                titleEditable.classList.add('column-title-editable');
-                titleEditable.classList.add('hidden');
-                titleEditable.spellcheck = false;
-                titleEditable.value = name;
+        const titleEditable = document.createElement('input');
+        titleEditable.classList.add('column-title-editable');
+        titleEditable.classList.add('hidden');
+        titleEditable.spellcheck = false;
+        titleEditable.type = "text";
+        titleEditable.value = name;
 
-            header.append(dragImage);
-            header.append(title);
-            header.append(titleEditable);
+        header.append(dragImage);
+        header.append(title);
+        header.append(titleEditable);
 
 
-            const scrollArea = document.createElement('div');
-            scrollArea.classList.add('column-scroll-area');
-                const content = document.createElement('div');
-                content.classList.add('column-content');
-                const addCard = document.createElement('div');
-                addCard.classList.add('add-card');
-                addCard.textContent = "+ Add new card";
+        const scrollArea = document.createElement('div');
+        scrollArea.classList.add('column-scroll-area');
+        const content = document.createElement('div');
+        content.classList.add('column-content');
+        const addCard = document.createElement('div');
+        addCard.classList.add('add-card');
+        addCard.textContent = "+ Add new card";
 
-            scrollArea.append(content);
-            scrollArea.append(addCard);
+        scrollArea.append(content);
+        scrollArea.append(addCard);
 
 
         column.append(header);
         column.append(scrollArea);
 
 
-    
+
         header.addEventListener('dragstart', (e) => {
 
 
-            e.target.ghostImage = CreateGhostImage(col, e);
+            e.target.ghostImage = CreateGhostImage(column, e);
 
         });
 
         header.addEventListener('dragend', (e) => {
 
-            if(e.target.ghostImage){
+            if (e.target.ghostImage) {
 
                 e.target.ghostImage.remove();
                 e.target.ghostImage = null;
@@ -78,7 +95,7 @@ const DOMColumn = (function () {
 
         });
 
-        
+
         title.addEventListener('mouseup', () => {
 
             title.classList.add('hidden');
@@ -88,25 +105,38 @@ const DOMColumn = (function () {
         });
 
 
-        titleEditable.addEventListener('blur', ()=>{
+        titleEditable.addEventListener('blur', () => {
+
+            title.textContent = titleEditable.value;
 
             title.classList.remove('hidden');
             titleEditable.classList.add('hidden');
+
+
+            DOMSerializer.Save();
         })
 
-    
-        addCard.addEventListener('click', (e)=>{
+        titleEditable.addEventListener('keydown', (e)=>{
 
-            const emptyCardData = {title: "", description: "", color: "grey"};
+            if(e.key === 'Enter'){
+
+                titleEditable.blur();
+            }
+        });
+
+
+        addCard.addEventListener('click', (e) => {
+
+            const emptyCardData = { title: "", description: "", color: "grey" };
             const card = DOMCard.CreateCardElement(content, emptyCardData);
             DOMModal.editModal.OpenEditModal(card.data);
         });
 
 
-        column.data = CreateColumn({column, header, content});
+        column.data = CreateColumn({ column, header, content });
 
 
-        parentContent.append(column);
+        parentContent.insertBefore(column, addColumnButton);
         return column;
     }
 
@@ -122,49 +152,49 @@ const DOMColumn = (function () {
     }
 
 
-    const ClearHighlight = function(){
+    const ClearHighlight = function () {
 
-        columns.forEach((column) =>{
+        columns.forEach((column) => {
 
             column.DOMElements.column.classList.remove('highlight');
         });
     }
 
 
-    const GetMaxColumnPosition = function(xPosition){
+    const GetMaxColumnPosition = function (xPosition) {
 
 
-        const max = columns.reduce((max, column) =>{
+        const max = columns.reduce((max, column) => {
 
 
             const colElement = column.DOMElements.column;
 
             const rect = colElement.getBoundingClientRect();
-            
 
-            if(rect.left < xPosition){
+
+            if (rect.left < xPosition) {
 
                 return column;
             }
-                
+
             return max;
         });
 
         return max;
     }
 
-    const HighlightColumn = function(col){
+    const HighlightColumn = function (col) {
 
         col.DOMElements.column.classList.add('highlight');
     }
 
-    const ColumnContent = function(col){
+    const ColumnContent = function (col) {
 
         return col.DOMElements.content;
     }
 
 
-    return {columns, GetMaxColumnPosition, ClearHighlight, HighlightColumn, ColumnContent, CreateColumnElement};
+    return { columns, GetMaxColumnPosition, ClearHighlight, HighlightColumn, ColumnContent, CreateColumnElement };
 
 })();
 
