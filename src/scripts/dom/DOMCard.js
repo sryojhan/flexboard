@@ -162,11 +162,11 @@ const DOMCard = (function () {
         currentlyDraggedCard.classList.add('hidden');
 
         const gapElement = currentlyDraggedCard.gapElement;
-        //TODO: comprobacion para no tener que hacer esto en cada frame
 
         if (!gapElement.nextElement || gapElement.nextElement !== afterElement) {
 
             gapElement.nextElement = afterElement;
+
             columnElement.insertBefore(gapElement, afterElement);
         }
 

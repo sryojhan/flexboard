@@ -1,5 +1,6 @@
 import { DOMColumn } from "./DOMColumn";
 import { DOMCard } from "./DOMCard";
+import { Column } from "../models/column";
 
 const DOMSerializer = (function () {
 
@@ -7,7 +8,7 @@ const DOMSerializer = (function () {
 
     const SerializeToJSON = function () {
 
-        const cols = DOMColumn.columns;
+        const cols = Column.columns;
         const data = Array(cols.length);
 
 
@@ -59,7 +60,7 @@ const DOMSerializer = (function () {
 
             const colData = DOMColumn.CreateColumnElement(columns.name).data;
 
-            const col = DOMColumn.ColumnContent(colData);
+            const col = colData.ContentElement();
 
             columns.cards.forEach((data) => {
 

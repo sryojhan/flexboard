@@ -1,5 +1,4 @@
 
-import { DOMBoard } from "./DOMBoard"
 import { DOMColumn } from "./DOMColumn"
 import { DOMCard } from "./DOMCard";
 import { DOMSerializer } from "./DOMSerializer";
@@ -36,7 +35,8 @@ const DOMFlexboard = (function () {
                 const selectedColumn = DOMColumn.GetMaxColumnPosition(e.clientX);
                 DOMColumn.HighlightColumn(selectedColumn);
 
-                const columnContent = DOMColumn.ColumnContent(selectedColumn);
+
+                const columnContent = selectedColumn.ContentElement();
 
                 const afterElement = DOMCard.CalculateInsertPosition(columnContent, e.clientY);
 
@@ -64,7 +64,7 @@ const DOMFlexboard = (function () {
 
                 const card = Card.FindCard(id);
                 const newColumn = DOMColumn.GetMaxColumnPosition(e.clientX);
-                const contentElement = DOMColumn.ColumnContent(newColumn);
+                const contentElement = newColumn.ContentElement();
 
 
                 const afterElement = DOMCard.CalculateInsertPosition(contentElement, e.clientY);

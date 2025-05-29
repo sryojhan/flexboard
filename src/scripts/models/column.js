@@ -1,18 +1,43 @@
 import {Card} from "./card.js"
 
 
-const Column = function(name){
+const Column = (function(){
 
-    let cards = [];
+    let columns = [];
 
 
-    function addCard(card){
+    const CreateColumn = function (DOMElements) {
 
-        cards.push(card);
+        const id = crypto.randomUUID();
+        const cardsInColumn = [];
+
+
+
+        const MainElement = function(){
+
+            return DOMElements.column;
+        }
+
+        const ContentElement = function(){
+
+            return DOMElements.content;
+        }
+
+        const HeaderElement = function(){
+
+            return DOMElements.header;
+        }
+
+
+        const col = { DOMElements, id , cardsInColumn, MainElement, ContentElement, HeaderElement};
+
+
+        columns.push(col);
+        return col;
     }
 
 
-    return {name, addCard, id: crypto.randomUUID()};
-}
+    return {columns, CreateColumn};
+})();
 
 export {Column};

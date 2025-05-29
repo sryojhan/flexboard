@@ -6,11 +6,10 @@ import { DOMModal } from "./DOMModal";
 import dragHandle from "./../../images/drag-handle.svg";
 import { DOMSerializer } from "./DOMSerializer";
 
+import { Column } from "../models/column";
 
 const DOMColumn = (function () {
 
-
-    const columns = [];
 
     const parentContent = document.querySelector('.content');
 
@@ -133,30 +132,20 @@ const DOMColumn = (function () {
         });
 
 
-        column.data = CreateColumn({ column, header, content });
+        column.data = Column.CreateColumn({ column, header, content });
 
 
         parentContent.insertBefore(column, addColumnButton);
         return column;
     }
 
-    const CreateColumn = function (DOMElements) {
-
-
-        const id = crypto.randomUUID();
-
-        const col = { DOMElements, id };
-        columns.push(col);
-
-        return col;
-    }
 
 
     const ClearHighlight = function () {
 
-        columns.forEach((column) => {
+        Column.columns.forEach((column) => {
 
-            column.DOMElements.column.classList.remove('highlight');
+            column.MainElement().classList.remove('highlight');
         });
     }
 
@@ -164,10 +153,10 @@ const DOMColumn = (function () {
     const GetMaxColumnPosition = function (xPosition) {
 
 
-        const max = columns.reduce((max, column) => {
+        const max = Column.columns.reduce((max, column) => {
 
 
-            const colElement = column.DOMElements.column;
+            const colElement = column.MainElement();
 
             const rect = colElement.getBoundingClientRect();
 
@@ -185,16 +174,12 @@ const DOMColumn = (function () {
 
     const HighlightColumn = function (col) {
 
-        col.DOMElements.column.classList.add('highlight');
-    }
-
-    const ColumnContent = function (col) {
-
-        return col.DOMElements.content;
+        col.MainElement().classList.add('highlight');
     }
 
 
-    return { columns, GetMaxColumnPosition, ClearHighlight, HighlightColumn, ColumnContent, CreateColumnElement };
+
+    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement };
 
 })();
 
