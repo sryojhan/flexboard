@@ -132,7 +132,7 @@ const DOMFlexboard = (function () {
             event.preventDefault();
 
             DOMCard.UnAppedCardGap();
-
+            DOMColumn.ClearHighlight();
         });
 
 
