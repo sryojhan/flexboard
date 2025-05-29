@@ -30,7 +30,13 @@ const Card = (function () {
         return cards.find((card) => card.id === id)
     }
 
-    return {CreateCard, ClearAllCards, FindCard};
+    const RemoveCard = function(card) {
+
+        const idx = cards.indexOf(card);
+        cards.splice(idx, 1);
+    }
+
+    return {CreateCard, ClearAllCards, FindCard, RemoveCard};
 
 })();
 

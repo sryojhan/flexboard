@@ -10,41 +10,58 @@ const DOMFlexboard = (function () {
 
 
     const content = document.querySelector('.content');
+    const deleteElements = document.querySelector('#delete-elements');
+
+    let deleteElementsDragCounter = 0;
+
+    setTimeout(() => {
+
+        deleteElements.classList.remove('load');
+    }, 0);
+
+    const BeginDrag = function () {
 
 
-    DOMCard.SetDragEndCallback(() => {
+
+        deleteElementsDragCounter = 0;
+        deleteElements.classList.remove('hidden');
+
+    }
+
+    const EndDrag = function () {
+
+
+        deleteElements.classList.add('hidden');
 
         DOMColumn.ClearHighlight();
         DOMCard.UnAppedCardGap();
-    });
-
-
+    }
 
 
     const DragAndDrop = (function () {
 
 
-        content.addEventListener('dragover', (e) => {
+        content.addEventListener('dragover', (event) => {
 
-            e.preventDefault();
+            event.preventDefault();
 
 
-            if (e.dataTransfer.types.includes('flexboard/card')) {
+            if (event.dataTransfer.types.includes('flexboard/card')) {
 
                 DOMColumn.ClearHighlight();
 
-                const selectedColumn = DOMColumn.GetMaxColumnPosition(e.clientX);
+                const selectedColumn = DOMColumn.GetMaxColumnPosition(event.clientX);
                 DOMColumn.HighlightColumn(selectedColumn);
 
 
                 const columnContent = selectedColumn.ContentElement();
 
-                const {insertElement: afterElement} = DOMCard.CalculateInsertPosition(columnContent, e.clientY);
+                const { insertElement: afterElement } = DOMCard.CalculateInsertPosition(columnContent, event.clientY);
 
                 DOMCard.AppendCardGapAtIndex(columnContent, afterElement);
 
 
-            } else if (e.dataTransfer.types.includes('flexboard/column')) {
+            } else if (event.dataTransfer.types.includes('flexboard/column')) {
 
             }
 
@@ -56,35 +73,94 @@ const DOMFlexboard = (function () {
 
         });
 
-        content.addEventListener('drop', (e) => {
+        content.addEventListener('drop', (event) => {
 
 
-            if (e.dataTransfer.types.includes('flexboard/card')) {
+            if (event.dataTransfer.types.includes('flexboard/card')) {
 
-                const id = e.dataTransfer.getData('flexboard/card');
+                const id = event.dataTransfer.getData('flexboard/card');
 
                 const card = Card.FindCard(id);
-                const newColumn = DOMColumn.GetMaxColumnPosition(e.clientX);
+                const newColumn = DOMColumn.GetMaxColumnPosition(event.clientX);
                 const contentElement = newColumn.ContentElement();
 
 
-                const {insertElement: afterElement, insertIdx} = DOMCard.CalculateInsertPosition(contentElement, e.clientY);
-                
+                const { insertElement: afterElement, insertIdx } = DOMCard.CalculateInsertPosition(contentElement, event.clientY);
+
 
                 Column.EraseCardFromHierarchy(card);
 
-                
+
                 newColumn.InsertCardAtIndex(card, insertIdx);
 
 
                 contentElement.insertBefore(card.element, afterElement);
-                
+
                 DOMCard.UnAppedCardGap();
-                
+
                 DOMSerializer.Save();
             }
 
             //TODO: drag and drop for cards elements
+        });
+
+
+
+
+
+        deleteElements.addEventListener('dragenter', (event) => {
+
+            deleteElementsDragCounter++;
+
+            deleteElements.classList.add('hover');
+
+        });
+
+        deleteElements.addEventListener('dragleave', (event) => {
+
+            deleteElementsDragCounter--;
+
+            if (deleteElementsDragCounter <= 0) {
+                deleteElements.classList.remove('hover');
+            }
+        });
+
+
+        deleteElements.addEventListener('dragover', (event) => {
+
+            event.stopPropagation();
+            event.preventDefault();
+
+            DOMCard.UnAppedCardGap();
+
+        });
+
+
+        deleteElements.addEventListener('drop', (event)=>{
+
+            event.stopPropagation();
+            DOMCard.UnAppedCardGap();
+
+
+            if (event.dataTransfer.types.includes('flexboard/card')) {
+
+                const id = event.dataTransfer.getData('flexboard/card');
+
+                const card = Card.FindCard(id);
+
+                //Remove card from columns
+                Column.EraseCardFromHierarchy(card);
+
+                //Remove card from card list
+                Card.RemoveCard(card);
+
+                //Remove card from DOM
+                card.element.remove();
+
+
+                DOMSerializer.Save();
+            }
+
         });
 
     })();
@@ -92,7 +168,7 @@ const DOMFlexboard = (function () {
 
 
 
-    return {}
+    return { BeginDrag, EndDrag }
 
 
 })();

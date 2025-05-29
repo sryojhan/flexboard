@@ -128,6 +128,9 @@ const DOMColumn = (function () {
 
             const emptyCardData = { title: "", description: "", color: "grey" };
             const card = DOMCard.CreateCardElement(content, emptyCardData);
+
+            column.data.PushCard(card.data);
+
             DOMModal.editModal.OpenEditModal(card.data);
         });
 

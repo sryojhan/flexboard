@@ -576,18 +576,49 @@ body{
 .delete-elements-border{
     
     --element-width: min(90%, 900px);
-    
+
+    --dark-color: rgb(77, 6, 6);
+    --light-color: rgba(255, 145, 145, 0.76);
+
+    --element-outline-color: var(--dark-color);
+    --element-background-color: var(--light-color);
+    --element-bin-color: var(--element-outline-color);
+
     position: absolute;
     bottom: 20px;
     left: calc(50% - var(--element-width) * 0.5);
 
 
     border-radius: 30px;
-    border: dashed 5px rgb(77, 6, 6);
+    border: dashed 5px var(--element-outline-color);
 
     width: var(--element-width);
-    height: 200px;
+    height: 100px;
 
+    color: var(--element-bin-color);
+    
+    transform:scaleY(1);
+    transition: transform 0.2s ease-in-out 0.3s;
+}
+
+
+.delete-elements-border.hidden{
+
+    transition: transform 0.2s ease-in-out;
+    transform:scaleY(0);
+}
+
+
+.delete-elements-border.load{
+
+    transition: none !important;
+}
+
+
+.delete-elements-border.hover{
+
+    --element-bin-color: var(--light-color);
+    --element-background-color: var(--dark-color);
 }
 
 
@@ -596,18 +627,14 @@ body{
     width: 100%;
     height: 100%;
     
-    background-color: rgba(255, 145, 145, 0.76);
+    background-color: var(--element-background-color);
+
 
     border-radius: 25px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
     
-}
-
-.delete-elements i{
-
-    color: rgb(77, 6, 6);
-
 }

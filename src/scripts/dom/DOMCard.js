@@ -4,6 +4,7 @@ import { CreateGhostImage } from "./DOMUtils";
 import { DOMModal } from "./DOMModal";
 
 import { Card } from "../models/card";
+import DOMFlexboard from "./DOMFlexboard";
 
 const DOMCard = (function () {
 
@@ -34,40 +35,40 @@ const DOMCard = (function () {
         card.data = Card.CreateCard(card, creationData);
 
 
-        card.addEventListener('dragstart', (e) => {
+        card.addEventListener('dragstart', (event) => {
 
 
-            e.target.ghostCard = CreateGhostImage(e.target, e);
-            e.target.gapElement = CreateGapElement(e.target);
+            event.target.ghostCard = CreateGhostImage(event.target, event);
+            event.target.gapElement = CreateGapElement(event.target);
 
-            e.dataTransfer.setData('flexboard/card', card.data.id);
+            event.dataTransfer.setData('flexboard/card', card.data.id);
 
 
-            currentlyDraggedCard = e.target;
+            currentlyDraggedCard = event.target;
+
+            DOMFlexboard.BeginDrag();
         });
 
-        card.addEventListener('dragend', (e) => {
+        card.addEventListener('dragend', (event) => {
 
             card.classList.remove('hidden');
 
-            if (onDragEnd !== null) {
-
-                onDragEnd();
+            
+            if (event.target.ghostCard) {
+                
+                event.target.ghostCard.remove();
+                event.target.ghostCard = null;
             }
-
-            if (e.target.ghostCard) {
-
-                e.target.ghostCard.remove();
-                e.target.ghostCard = null;
+            
+            if (event.target.gapElement) {
+                
+                event.target.gapElement.remove();
+                event.target.gapElement = null;
             }
-
-            if (e.target.gapElement) {
-
-                e.target.gapElement.remove();
-                e.target.gapElement = null;
-            }
-
+            
             currentlyDraggedCard = null;
+
+            DOMFlexboard.EndDrag();
         });
 
         card.addEventListener('dblclick', () => {
@@ -122,8 +123,6 @@ const DOMCard = (function () {
 
 
         const cardElements = columnElement.querySelectorAll('.card');
-
-        console.log(cardElements);
 
         let insertIdx = 0;
         let insertElement = cardElements[0];
@@ -193,15 +192,7 @@ const DOMCard = (function () {
     }
 
 
-    let onDragEnd = null;
-
-    const SetDragEndCallback = function (callback) {
-
-        onDragEnd = callback;
-    }
-
-
-    return { CalculateInsertPosition, AppendCardGapAtIndex, UnAppedCardGap, SetDragEndCallback, CreateCardElement, UpdateElement }
+    return { CalculateInsertPosition, AppendCardGapAtIndex, UnAppedCardGap, CreateCardElement, UpdateElement }
 
 })();
 
