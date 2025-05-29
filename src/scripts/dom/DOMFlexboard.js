@@ -37,9 +37,9 @@ const DOMFlexboard = (function () {
 
                 const columnContent = DOMColumn.ColumnContent(selectedColumn);
 
-                const insertIdx = DOMCard.CalculateCardPositionIndex(columnContent, e.clientY);
+                const afterElement = DOMCard.CalculateInsertPosition(columnContent, e.clientY);
 
-                DOMCard.AppendCardGapAtIndex(columnContent, insertIdx);
+                DOMCard.AppendCardGapAtIndex(columnContent, afterElement);
 
 
             } else if (e.dataTransfer.types.includes('flexboard/column')) {
@@ -66,12 +66,12 @@ const DOMFlexboard = (function () {
                 const contentElement = DOMColumn.ColumnContent(newColumn);
 
 
+                const afterElement = DOMCard.CalculateInsertPosition(contentElement, e.clientY);
+                
+                contentElement.insertBefore(card.element, afterElement);
+                
                 DOMCard.UnAppedCardGap();
-                const insertIdx = DOMCard.CalculateCardPositionIndex(contentElement, e.clientY);
-
-                contentElement.insertBefore(card.element, contentElement.children[insertIdx]);
-
-
+                
                 DOMSerializer.Save();
             }
 

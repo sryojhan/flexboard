@@ -219,7 +219,7 @@ body{
 
 }
 
-.card{
+.card:not(.card-gap){
 
     width: 100%;
     max-height:var(--max-card-height);
@@ -261,6 +261,8 @@ body{
     background-color: rgb(201, 201, 201);
     background-color: #d1d2d3;
     border: none;
+
+    transition: none;
 }
 
 
@@ -337,7 +339,10 @@ body{
     background-color: var(--main-modal-color) !important; 
 }
 
+.card.hidden{
 
+    display: none;
+}
 
 
 .card h1{

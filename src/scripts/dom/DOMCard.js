@@ -48,6 +48,8 @@ const DOMCard = (function () {
 
         card.addEventListener('dragend', (e) => {
 
+            card.classList.remove('hidden');
+
             if (onDragEnd !== null) {
 
                 onDragEnd();
@@ -130,42 +132,65 @@ const DOMCard = (function () {
 
         gapElement.style.height = `${draggedCard.getBoundingClientRect().height}px`;
 
+        gapElement.nextElement = null;
+
         return gapElement;
     }
 
 
 
-    const CalculateCardPositionIndex = function (columnElement, yPosition) {
+    const CalculateInsertPosition = function (columnElement, yPosition) {
 
         const cardsElemnents = columnElement.querySelectorAll('.card');
 
-        let insertIdx = 0;
+        let insertElement = cardsElemnents[0];
+
+        let selectNext = false;
 
         cardsElemnents.forEach((card, idx) => {
+
+            if(selectNext){
+                insertElement = card;
+                selectNext = false;
+            }
 
             const rect = card.getBoundingClientRect();
             let centerPoint = (rect.top + rect.bottom) * 0.5;
 
-            if (yPosition > centerPoint) {
 
-                insertIdx = idx + 1;
+            let isGap = card.classList.contains('card-gap');
+
+            if(isGap) console.log("aa");
+
+            let isCardHidden = card.classList.contains('hidden');
+
+            if (!isCardHidden && yPosition > centerPoint) {
+
+                selectNext = true;
             }
 
         });
 
-        return insertIdx;
+        if(selectNext)
+            insertElement = null;
+
+        return insertElement;
     }
 
 
-    const AppendCardGapAtIndex = function (columnElement, idx) {
-
+    const AppendCardGapAtIndex = function (columnElement, afterElement) {
+        
+        currentlyDraggedCard.classList.add('hidden');
 
         const gapElement = currentlyDraggedCard.gapElement;
-        if (gapElement.parentElement !== null && gapElement.parentElement === columnElement && Array.from(gapElement.parentElement.children).indexOf(gapElement) === idx) {
-            return;
+        //TODO: comprobacion para no tener que hacer esto en cada frame
+
+        if(!gapElement.nextElement || gapElement.nextElement !== afterElement){
+
+            gapElement.nextElement = afterElement;
+            columnElement.insertBefore(gapElement, afterElement);
         }
-        const cardsElemnents = columnElement.querySelectorAll('.card');
-        columnElement.insertBefore(gapElement, cardsElemnents[idx]);
+
     }
 
 
@@ -186,7 +211,7 @@ const DOMCard = (function () {
     }
 
 
-    return { cards, FindCard, CalculateCardPositionIndex, AppendCardGapAtIndex, UnAppedCardGap, SetDragEndCallback, CreateCardElement }
+    return { cards, FindCard,  CalculateInsertPosition, AppendCardGapAtIndex, UnAppedCardGap, SetDragEndCallback, CreateCardElement }
 
 })();
 
