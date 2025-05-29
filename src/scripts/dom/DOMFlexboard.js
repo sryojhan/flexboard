@@ -3,6 +3,7 @@ import { DOMBoard } from "./DOMBoard"
 import { DOMColumn } from "./DOMColumn"
 import { DOMCard } from "./DOMCard";
 import { DOMSerializer } from "./DOMSerializer";
+import { Card } from "../models/card";
 
 const DOMFlexboard = (function () {
 
@@ -61,7 +62,7 @@ const DOMFlexboard = (function () {
 
                 const id = e.dataTransfer.getData('flexboard/card');
 
-                const card = DOMCard.FindCard(id);
+                const card = Card.FindCard(id);
                 const newColumn = DOMColumn.GetMaxColumnPosition(e.clientX);
                 const contentElement = DOMColumn.ColumnContent(newColumn);
 

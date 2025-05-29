@@ -3,9 +3,9 @@ import { CreateGhostImage } from "./DOMUtils";
 
 import { DOMModal } from "./DOMModal";
 
-const DOMCard = (function () {
+import { Card } from "../models/card";
 
-    const cards = [];
+const DOMCard = (function () {
 
     let currentlyDraggedCard = null;
 
@@ -31,8 +31,8 @@ const DOMCard = (function () {
 
         columnContent.append(card);
 
-        card.data = CreateCard(card, creationData);
-         
+        card.data = Card.CreateCard(card, creationData);
+
 
         card.addEventListener('dragstart', (e) => {
 
@@ -75,53 +75,32 @@ const DOMCard = (function () {
             DOMModal.modal.OpenModal(card.data);
         });
 
-        
+
 
         return card;
     }
 
-    const CreateCard = function (element, creationData) {
 
-        const id = crypto.randomUUID();
+    const UpdateElement = function (card) {
 
         const titleElement = element.querySelector('h1');
         const descriptionElement = element.querySelector('p');
         const colorElement = element.querySelector('.card-color');
 
 
-        const title = creationData.title;
-        const description = creationData.description;
-        const color = creationData.color;
+        titleElement.textContent = card.title;
+        descriptionElement.textContent = card.description;
 
-        const UpdateElement = function () {
+        Array.from(colorElement.classList).forEach((cssClass) => {
 
-            titleElement.textContent = card.title;
-            descriptionElement.textContent = card.description;
+            if (cssClass !== 'card-color')
+                colorElement.classList.remove(cssClass);
+        });
 
-            Array.from(colorElement.classList).forEach((cssClass) => {
-
-                if (cssClass !== 'card-color')
-                    colorElement.classList.remove(cssClass);
-            });
-
-            colorElement.classList.add(card.color);
-        }
-
-
-        
-        const card = { element, id, title, description, color };
-        card.UpdateElement = UpdateElement;
-
-
-        cards.push(card);
-        return card;
+        colorElement.classList.add(card.color);
     }
 
 
-    const FindCard = function (id) {
-
-        return cards.find((card) => card.id === id)
-    }
 
 
     const CreateGapElement = function (draggedCard) {
@@ -149,7 +128,7 @@ const DOMCard = (function () {
 
         cardsElemnents.forEach((card, idx) => {
 
-            if(selectNext){
+            if (selectNext) {
                 insertElement = card;
                 selectNext = false;
             }
@@ -160,7 +139,7 @@ const DOMCard = (function () {
 
             let isGap = card.classList.contains('card-gap');
 
-            if(isGap) console.log("aa");
+            if (isGap) console.log("aa");
 
             let isCardHidden = card.classList.contains('hidden');
 
@@ -171,7 +150,7 @@ const DOMCard = (function () {
 
         });
 
-        if(selectNext)
+        if (selectNext)
             insertElement = null;
 
         return insertElement;
@@ -179,13 +158,13 @@ const DOMCard = (function () {
 
 
     const AppendCardGapAtIndex = function (columnElement, afterElement) {
-        
+
         currentlyDraggedCard.classList.add('hidden');
 
         const gapElement = currentlyDraggedCard.gapElement;
         //TODO: comprobacion para no tener que hacer esto en cada frame
 
-        if(!gapElement.nextElement || gapElement.nextElement !== afterElement){
+        if (!gapElement.nextElement || gapElement.nextElement !== afterElement) {
 
             gapElement.nextElement = afterElement;
             columnElement.insertBefore(gapElement, afterElement);
@@ -211,7 +190,7 @@ const DOMCard = (function () {
     }
 
 
-    return { cards, FindCard,  CalculateInsertPosition, AppendCardGapAtIndex, UnAppedCardGap, SetDragEndCallback, CreateCardElement }
+    return { CalculateInsertPosition, AppendCardGapAtIndex, UnAppedCardGap, SetDragEndCallback, CreateCardElement }
 
 })();
 
