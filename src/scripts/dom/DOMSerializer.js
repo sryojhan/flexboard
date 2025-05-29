@@ -65,7 +65,9 @@ const DOMSerializer = (function () {
             columns.cards.forEach((data) => {
 
 
-                DOMCard.CreateCardElement(col, data);
+                const cardData = DOMCard.CreateCardElement(col, data).data;
+
+                colData.PushCard(cardData);
             });
         });
 

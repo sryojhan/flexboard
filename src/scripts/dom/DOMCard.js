@@ -83,9 +83,9 @@ const DOMCard = (function () {
 
     const UpdateElement = function (card) {
 
-        const titleElement = element.querySelector('h1');
-        const descriptionElement = element.querySelector('p');
-        const colorElement = element.querySelector('.card-color');
+        const titleElement = card.element.querySelector('h1');
+        const descriptionElement = card.element.querySelector('p');
+        const colorElement = card.element.querySelector('.card-color');
 
 
         titleElement.textContent = card.title;
@@ -120,13 +120,19 @@ const DOMCard = (function () {
 
     const CalculateInsertPosition = function (columnElement, yPosition) {
 
-        const cardsElemnents = columnElement.querySelectorAll('.card');
 
-        let insertElement = cardsElemnents[0];
+        const cardElements = columnElement.querySelectorAll('.card');
+
+        console.log(cardElements);
+
+        let insertIdx = 0;
+        let insertElement = cardElements[0];
 
         let selectNext = false;
 
-        cardsElemnents.forEach((card, idx) => {
+        let isBelowHidden = false;
+
+        cardElements.forEach((card, idx) => {
 
             if (selectNext) {
                 insertElement = card;
@@ -137,23 +143,28 @@ const DOMCard = (function () {
             let centerPoint = (rect.top + rect.bottom) * 0.5;
 
 
-            let isGap = card.classList.contains('card-gap');
-
-            if (isGap) console.log("aa");
-
             let isCardHidden = card.classList.contains('hidden');
+
+            if(isCardHidden)
+            {
+                isBelowHidden = true;
+            }
 
             if (!isCardHidden && yPosition > centerPoint) {
 
                 selectNext = true;
+                insertIdx = idx + (isBelowHidden ? 0 : 1);
             }
 
         });
 
-        if (selectNext)
-            insertElement = null;
+        if (selectNext){
 
-        return insertElement;
+            insertElement = null;
+        }
+        
+
+        return {insertElement, insertIdx};
     }
 
 
@@ -190,7 +201,7 @@ const DOMCard = (function () {
     }
 
 
-    return { CalculateInsertPosition, AppendCardGapAtIndex, UnAppedCardGap, SetDragEndCallback, CreateCardElement }
+    return { CalculateInsertPosition, AppendCardGapAtIndex, UnAppedCardGap, SetDragEndCallback, CreateCardElement, UpdateElement }
 
 })();
 

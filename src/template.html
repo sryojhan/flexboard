@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flexboard</title>
+
+    
+    <script src="https://kit.fontawesome.com/48f3332e11.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -36,75 +40,82 @@
 
 
             <div class="content">
+
                 <div class="add-column">Add new column</div>
+
+                <div id="delete-elements" class="delete-elements-border">
+                    <div class="delete-elements">
+                        <i class="fa-solid fa-trash fa-2xl"></i>
+                    </div>
+                </div>
             </div>
-
-
 
 
         </div>
 
+    </div>
 
 
 
-        <div class="modal-background card-edit hidden">
-            <div class="modal card-edit">
 
-                <h1>Edit card information</h1>
+    <div class="modal-background card-edit hidden">
+        <div class="modal card-edit">
 
-
-
-                <div class="input">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" autocomplete="off">
-                </div>
-
-                <div class="input">
-                    <label for="description">Description</label>
-                    <textarea class="description" type="text" name="description" id="description" rows="3"></textarea>
-                </div>
+            <h1>Edit card information</h1>
 
 
-                <div class="color-selector">
 
-                    <button type="button" class="color-selector-button green"></button>
-                    <button type="button" class="color-selector-button yellow"></button>
-                    <button type="button" class="color-selector-button orange"></button>
-                    <button type="button" class="color-selector-button red"></button>
+            <div class="input">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" autocomplete="off">
+            </div>
 
-                    <button type="button" class="color-selector-button blue"></button>
-                    <button type="button" class="color-selector-button turqoise"></button>
-                    <button type="button" class="color-selector-button purple"></button>
-                    <button type="button" class="color-selector-button pink"></button>
-
-                </div>
-
-                <button class="modal-button" id="save-button" type="button">Save</button>
+            <div class="input">
+                <label for="description">Description</label>
+                <textarea class="description" type="text" name="description" id="description" rows="3"></textarea>
+            </div>
 
 
+            <div class="color-selector">
+
+                <button type="button" class="color-selector-button green"></button>
+                <button type="button" class="color-selector-button yellow"></button>
+                <button type="button" class="color-selector-button orange"></button>
+                <button type="button" class="color-selector-button red"></button>
+
+                <button type="button" class="color-selector-button blue"></button>
+                <button type="button" class="color-selector-button turqoise"></button>
+                <button type="button" class="color-selector-button purple"></button>
+                <button type="button" class="color-selector-button pink"></button>
 
             </div>
+
+            <button class="modal-button" id="save-button" type="button">Save</button>
+
+
+
         </div>
+    </div>
 
 
 
 
-        <div class="modal-background card-show hidden">
-            <div class="modal card-show">
+    <div class="modal-background card-show hidden">
+        <div class="modal card-show">
 
-                <h1 id="card-title-show">Example card title</h1>
+            <h1 id="card-title-show">Example card title</h1>
 
-                <p id="card-description-show">Esta es la descripcion de mi tarjeta todo poderosa</p>
+            <p id="card-description-show">Esta es la descripcion de mi tarjeta todo poderosa</p>
 
 
-                <div class="buttons">
+            <div class="buttons">
 
-                    <button class="modal-button" id="show-modal-done" type="button">Done</button>
-                    <button class="modal-button" id="show-modal-edit" type="button">Edit</button>
-                </div>
-
+                <button class="modal-button" id="show-modal-done" type="button">Done</button>
+                <button class="modal-button" id="show-modal-edit" type="button">Edit</button>
             </div>
+
         </div>
+    </div>
 
 
 
@@ -112,8 +123,6 @@
 
 
     </div>
-
-
 
 
 </body>

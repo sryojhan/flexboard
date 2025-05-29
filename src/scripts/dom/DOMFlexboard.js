@@ -3,6 +3,7 @@ import { DOMColumn } from "./DOMColumn"
 import { DOMCard } from "./DOMCard";
 import { DOMSerializer } from "./DOMSerializer";
 import { Card } from "../models/card";
+import { Column } from "../models/column";
 
 const DOMFlexboard = (function () {
 
@@ -38,7 +39,7 @@ const DOMFlexboard = (function () {
 
                 const columnContent = selectedColumn.ContentElement();
 
-                const afterElement = DOMCard.CalculateInsertPosition(columnContent, e.clientY);
+                const {insertElement: afterElement} = DOMCard.CalculateInsertPosition(columnContent, e.clientY);
 
                 DOMCard.AppendCardGapAtIndex(columnContent, afterElement);
 
@@ -67,8 +68,15 @@ const DOMFlexboard = (function () {
                 const contentElement = newColumn.ContentElement();
 
 
-                const afterElement = DOMCard.CalculateInsertPosition(contentElement, e.clientY);
+                const {insertElement: afterElement, insertIdx} = DOMCard.CalculateInsertPosition(contentElement, e.clientY);
                 
+
+                Column.EraseCardFromHierarchy(card);
+
+                
+                newColumn.InsertCardAtIndex(card, insertIdx);
+
+
                 contentElement.insertBefore(card.element, afterElement);
                 
                 DOMCard.UnAppedCardGap();
@@ -76,7 +84,7 @@ const DOMFlexboard = (function () {
                 DOMSerializer.Save();
             }
 
-
+            //TODO: drag and drop for cards elements
         });
 
     })();

@@ -1,5 +1,3 @@
-import {Card} from "./card.js"
-
 
 const Column = (function(){
 
@@ -11,7 +9,7 @@ const Column = (function(){
         const id = crypto.randomUUID();
         const cardsInColumn = [];
 
-
+        let name = "";
 
         const MainElement = function(){
 
@@ -29,15 +27,48 @@ const Column = (function(){
         }
 
 
-        const col = { DOMElements, id , cardsInColumn, MainElement, ContentElement, HeaderElement};
+        const PushCard = function(card){
+
+            card.column = id;
+            cardsInColumn.push(card);
+        }
+
+        const InsertCardAtIndex = function(card, idx){
+
+            card.column = id;
+            cardsInColumn.splice(idx, 0, card);
+
+        }
+
+        const SetName  = function(newName){
+
+            name = newName;
+        }
+
+
+        const col = { id, name, DOMElements , cardsInColumn, MainElement, ContentElement, HeaderElement, PushCard, InsertCardAtIndex, SetName};
 
 
         columns.push(col);
         return col;
     }
 
+    const FindColumn = function(id){
 
-    return {columns, CreateColumn};
+        return columns.find((col) => col.id === id);
+    }
+
+
+    const EraseCardFromHierarchy = function(card){
+
+        const col = FindColumn(card.column);
+
+        const elemIdx = col.cardsInColumn.indexOf(card);
+        col.cardsInColumn.splice(elemIdx, 1);
+    }
+
+
+    return {columns, CreateColumn, FindColumn, EraseCardFromHierarchy};
 })();
 
 export {Column};
