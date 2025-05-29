@@ -578,7 +578,7 @@ body{
     --element-width: min(90%, 900px);
 
     --dark-color: rgb(77, 6, 6);
-    --light-color: rgba(255, 145, 145, 0.76);
+    --light-color: rgba(255, 145, 145, 0.37);
 
     --element-outline-color: var(--dark-color);
     --element-background-color: var(--light-color);

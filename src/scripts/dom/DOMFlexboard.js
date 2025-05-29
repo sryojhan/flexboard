@@ -67,7 +67,7 @@ const DOMFlexboard = (function () {
 
             else {
 
-                console.log("hubo un problema");
+//                console.log("hubo un problema");
             }
 
 

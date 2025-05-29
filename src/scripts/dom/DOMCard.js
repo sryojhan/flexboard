@@ -43,7 +43,6 @@ const DOMCard = (function () {
 
             event.dataTransfer.setData('flexboard/card', card.data.id);
 
-
             currentlyDraggedCard = event.target;
 
             DOMFlexboard.BeginDrag();

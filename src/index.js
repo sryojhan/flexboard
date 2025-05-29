@@ -17,16 +17,19 @@ const toDoCards = [
     {
         "name": "Pending",
         "cards": [
+            
+            {
+                "title": "Page modal serialization",
+                "description": "",
+                "color": "red"
+            },
+
             {
                 "title": "Columns must be movable",
                 "description": "",
                 "color": "red"
             },
-            {
-                "title": "Remove cards",
-                "description": "",
-                "color": "red"
-            },
+            
             {
                 "title": "Remove columns",
                 "description": "",
@@ -34,6 +37,11 @@ const toDoCards = [
             },
             {
                 "title": "Setup different boards",
+                "description": "",
+                "color": "red"
+            },
+            {
+                "title": "Page header",
                 "description": "",
                 "color": "red"
             },
@@ -49,6 +57,11 @@ const toDoCards = [
             },
             {
                 "title": "Remove done button from view",
+                "description": "Maybe just add an x at the top right",
+                "color": "yellow"
+            },
+            {
+                "title": "copyright @ all rights reserved",
                 "description": "Maybe just add an x at the top right",
                 "color": "yellow"
             },
@@ -76,11 +89,6 @@ const toDoCards = [
                 "title": "Insultar en amarillo",
                 "description": "",
                 "color": "yellow"
-            },
-            {
-                "title": "Dios es que que mal que me cae Iván",
-                "description": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "color": "purple"
             }
         ]
     },
@@ -121,7 +129,12 @@ const toDoCards = [
                 "title": "Disable card",
                 "description": "Disable original card when draggin and the card gap is visible",
                 "color": "green"
-            }
+            },
+            {
+                "title": "Remove cards",
+                "description": "",
+                "color": "green"
+            },
         ]
     }
 ]
@@ -274,6 +287,8 @@ const defaultInit = [
     }
 ]
 
+
+DOMSerializer.ClearData();
 DOMSerializer.Load(toDoCards);
 
 
