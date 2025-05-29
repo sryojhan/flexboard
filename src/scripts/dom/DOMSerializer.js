@@ -15,28 +15,17 @@ const DOMSerializer = (function () {
         cols.forEach((colData, idx) => {
 
 
-            const name = colData.DOMElements.header.querySelector('.column-title').textContent;
+            const name = colData.name;
 
-            const content = colData.DOMElements.content;
+            const cardsInColumn = colData.cardsInColumn;
 
             const cards = [];
 
-            for (const cardElem of content.children) {
+            for (const card of cardsInColumn) {
 
-
-                const title = cardElem.querySelector('h1').textContent;
-                const description = cardElem.querySelector('p').textContent;
-
-                const colorElem = cardElem.querySelector('.card-color');
-
-                let color = "";
-
-                Array.from(colorElem.classList).forEach((cssClass) => {
-
-                    if (cssClass !== "card-color")
-                        color = cssClass;
-                });
-
+                const title = card.title;
+                const description = card.description;
+                const color = card.color;
 
 
                 cards.push({ title, description, color })

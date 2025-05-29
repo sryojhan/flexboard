@@ -13,23 +13,32 @@ leftBanner.addEventListener('dblclick', () => {
 })
 
 
+const Initialise = function () {
+
+
+
+    DOMSerializer.ClearData();
+    DOMSerializer.Load(toDoCards);
+}
+
+
+window.Serialize = DOMSerializer.SerializeToJSON;
+
+
+
+
 const toDoCards = [
     {
         "name": "Pending",
         "cards": [
-            
-            {
-                "title": "Page modal serialization",
-                "description": "",
-                "color": "red"
-            },
+
 
             {
                 "title": "Columns must be movable",
                 "description": "",
                 "color": "red"
             },
-            
+
             {
                 "title": "Remove columns",
                 "description": "",
@@ -69,7 +78,32 @@ const toDoCards = [
                 "title": "Sistema de drag and drop personalizado",
                 "description": "",
                 "color": "pink"
-            }
+            },
+            {
+                "title": "Dark mode",
+                "description": "",
+                "color": "pink"
+            },
+            {
+                "title": "Collapse cards",
+                "description": "",
+                "color": "pink"
+            },
+            {
+                "title": "Background color selector",
+                "description": "",
+                "color": "pink"
+            },
+            {
+                "title": "Import background image",
+                "description": "",
+                "color": "pink"
+            },
+            {
+                "title": "favicon",
+                "description": "",
+                "color": "pink"
+            },
         ]
     },
     {
@@ -135,6 +169,12 @@ const toDoCards = [
                 "description": "",
                 "color": "green"
             },
+            
+            {
+                "title": "Page model serialization",
+                "description": "",
+                "color": "green"
+            },
         ]
     }
 ]
@@ -151,7 +191,7 @@ const defaultInit = [
                 description: "",
                 color: "blue"
             },
-            
+
             {
                 title: "Keep track of every task you have to complete",
                 description: "",
@@ -166,7 +206,7 @@ const defaultInit = [
     },
     {
         name: "In progress",
-        
+
         "cards": [
 
             {
@@ -174,7 +214,7 @@ const defaultInit = [
                 description: "Double click the card to see the full description of the element! Use as much space as you need to use to make use everything is perfectly clear to you later",
                 color: "pink"
             },
-            
+
             {
                 title: "You can create new columns and even change the name of already existing ones",
                 description: "",
@@ -195,7 +235,7 @@ const defaultInit = [
     },
     {
         name: "I HATE DANIEL I HATE DANIEL I HATE DANIEL",
-        
+
         "cards": [
 
             {
@@ -203,7 +243,7 @@ const defaultInit = [
                 description: "",
                 color: "grey"
             },
-            
+
             {
                 title: "I HATE DANIEL ",
                 description: "",
@@ -274,7 +314,7 @@ const defaultInit = [
     },
     {
         name: "^^",
-        
+
         "cards": [
 
             {
@@ -282,14 +322,10 @@ const defaultInit = [
                 description: "",
                 color: "green"
             },
-            
+
         ]
     }
 ]
 
 
-DOMSerializer.ClearData();
-DOMSerializer.Load(toDoCards);
-
-
-window.Serialize = DOMSerializer.SerializeToJSON;
+Initialise();
