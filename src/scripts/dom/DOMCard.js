@@ -166,7 +166,7 @@ const DOMCard = (function () {
     }
 
 
-    const AppendCardGapAtIndex = function (columnElement, afterElement) {
+    const AppendCardGapBeforeElement = function (columnElement, afterElement) {
 
         currentlyDraggedCard.classList.add('hidden');
 
@@ -191,7 +191,7 @@ const DOMCard = (function () {
     }
 
 
-    return { CalculateInsertPosition, AppendCardGapAtIndex, UnAppedCardGap, CreateCardElement, UpdateElement }
+    return { CalculateInsertPosition, AppendCardGapBeforeElement, UnAppedCardGap, CreateCardElement, UpdateElement }
 
 })();
 

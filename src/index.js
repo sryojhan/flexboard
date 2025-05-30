@@ -16,8 +16,7 @@ leftBanner.addEventListener('dblclick', () => {
 const Initialise = function () {
 
 
-
-    DOMSerializer.ClearData();
+    //DOMSerializer.ClearData();
     DOMSerializer.Load(toDoCards);
 }
 

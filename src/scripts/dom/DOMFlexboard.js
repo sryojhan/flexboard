@@ -58,22 +58,30 @@ const DOMFlexboard = (function () {
 
                 const { insertElement: afterElement } = DOMCard.CalculateInsertPosition(columnContent, event.clientY);
 
-                DOMCard.AppendCardGapAtIndex(columnContent, afterElement);
+                DOMCard.AppendCardGapBeforeElement(columnContent, afterElement);
 
 
             } else if (event.dataTransfer.types.includes('flexboard/column')) {
+
+                DOMColumn.HideDraggedColumn();
+
+                const {insertElement} = DOMColumn.CalculateInsertPosition(event.clientX);
+                DOMColumn.AppendColumnGapBeforeElement(insertElement);
+
+
 
             }
 
             else {
 
-//                console.log("hubo un problema");
+                console.log("hubo un problema");
             }
 
 
         });
 
         content.addEventListener('drop', (event) => {
+
 
 
             if (event.dataTransfer.types.includes('flexboard/card')) {
@@ -98,10 +106,31 @@ const DOMFlexboard = (function () {
 
                 DOMCard.UnAppedCardGap();
 
+
                 DOMSerializer.Save();
             }
 
-            //TODO: drag and drop for cards elements
+
+            else if(event.dataTransfer.types.includes('flexboard/column')){
+
+                const id = event.dataTransfer.getData('flexboard/column');
+
+                const col = Column.FindColumn(id);
+                const colElement = col.MainElement();
+
+                const {insertElement, index} = DOMColumn.CalculateInsertPosition(event.clientX);
+
+                Column.EraseColumn(col);
+                Column.AddColumnAtPosition(col, index);
+
+                console.log(Column.columns);
+
+
+                colElement.parentElement.insertBefore(colElement, insertElement);
+
+                DOMSerializer.Save();
+            }
+
         });
 
 

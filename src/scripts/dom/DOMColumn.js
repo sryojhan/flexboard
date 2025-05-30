@@ -7,6 +7,7 @@ import dragHandle from "./../../images/drag-handle.svg";
 import { DOMSerializer } from "./DOMSerializer";
 
 import { Column } from "../models/column";
+import DOMFlexboard from "./DOMFlexboard";
 
 const DOMColumn = (function () {
 
@@ -14,6 +15,8 @@ const DOMColumn = (function () {
     const parentContent = document.querySelector('.content');
 
     const addColumnButton = parentContent.querySelector('.add-column');
+
+    let currentlySelectedColumn = null;
 
     addColumnButton.addEventListener('click', ()=>{
 
@@ -76,22 +79,36 @@ const DOMColumn = (function () {
         column.append(scrollArea);
 
 
+        header.addEventListener('dragstart', (event) => {
 
-        header.addEventListener('dragstart', (e) => {
 
+            column.ghostImage = CreateGhostImage(column, event);
+            column.gapElement = CreateGapElement(column);
 
-            e.target.ghostImage = CreateGhostImage(column, e);
+            event.dataTransfer.setData('flexboard/column', column.data.id);
+
+            currentlySelectedColumn = column;
 
         });
 
-        header.addEventListener('dragend', (e) => {
+        header.addEventListener('dragend', (event) => {
 
-            if (e.target.ghostImage) {
+            if (column.ghostImage) {
 
-                e.target.ghostImage.remove();
-                e.target.ghostImage = null;
+                column.ghostImage.remove();
+                column.ghostImage = null;
             }
 
+            if(column.gapElement){
+                column.gapElement.remove();
+                column.gapElement = null;
+            }
+
+            currentlySelectedColumn.classList.remove('hidden');
+            currentlySelectedColumn = null;
+
+
+            DOMFlexboard.EndDrag();
         });
 
 
@@ -111,6 +128,7 @@ const DOMColumn = (function () {
             title.classList.remove('hidden');
             titleEditable.classList.add('hidden');
 
+            column.data.name = title.textContent;
 
             DOMSerializer.Save();
         })
@@ -135,13 +153,84 @@ const DOMColumn = (function () {
         });
 
 
-        column.data = Column.CreateColumn({ column, header, content });
+        column.data = Column.CreateColumn({ column, header, content }, name);
 
 
         parentContent.insertBefore(column, addColumnButton);
         return column;
     }
 
+
+    const HideDraggedColumn = function(){
+
+        currentlySelectedColumn.classList.add('highlight');
+        currentlySelectedColumn.classList.add('hidden');
+    }
+
+
+    const CalculateInsertPosition = function(xPosition){
+
+        const parent = currentlySelectedColumn.parentElement;
+
+        let maxValidIdx = 0;
+
+        let afterHidden = false;
+        let selectedAfterHidden = false;
+
+        Array.from(parent.children).forEach((col, idx) =>{
+
+            //col.classList.contains('column-gap') || col.classList.contains('hidden')
+            if(col.classList.contains('add-column')){
+                return;
+            }
+
+            if(col.classList.contains('hidden')){
+                afterHidden = true;
+                return;
+            }
+
+            const rect = col.getBoundingClientRect();
+            const centerPoint = (rect.left + rect.right) * 0.5;
+
+            if(xPosition > centerPoint){
+
+                if(afterHidden) selectedAfterHidden = true;
+                maxValidIdx = idx + 1;
+            }
+        });
+
+        return {insertElement: parent.children[maxValidIdx], index: (selectedAfterHidden ? maxValidIdx -1 :  maxValidIdx)};
+    }
+
+
+    const AppendColumnGapBeforeElement = function(element){
+
+        const parent = currentlySelectedColumn.parentElement;
+        const gapElement = currentlySelectedColumn.gapElement;
+
+        parent.insertBefore(gapElement, element);
+    }
+
+    
+    const CreateGapElement = function(column){
+
+        const gapElement = document.createElement('div');
+        gapElement.classList.add('column-gap');
+
+        const gapVisual = document.createElement('div');
+        gapVisual.classList.add('column-gap-separator')
+
+
+
+        const rect = column.getBoundingClientRect();
+        gapElement.style.width = `${rect.right - rect.left}px`;
+        gapElement.style.height = `${rect.bottom - rect.top}px`;
+
+
+        gapElement.append(gapVisual);
+        return gapElement;
+
+    }
 
 
     const ClearHighlight = function () {
@@ -182,7 +271,8 @@ const DOMColumn = (function () {
 
 
 
-    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement };
+
+    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement, HideDraggedColumn, CalculateInsertPosition, AppendColumnGapBeforeElement};
 
 })();
 

@@ -14,7 +14,6 @@ const DOMSerializer = (function () {
 
         cols.forEach((colData, idx) => {
 
-
             const name = colData.name;
 
             const cardsInColumn = colData.cardsInColumn;

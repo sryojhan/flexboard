@@ -115,6 +115,39 @@ body{
     transition: transform .2s ease-out;
 }
 
+
+.column-gap{
+
+    background-color: transparent;
+    height: 100%;
+    
+    
+    /* To go back to a line remove this 3 rules below. Also erase display:none from separator */
+
+    width: 300px;
+    border-radius: 8px;
+    background-color: rgba(24, 24, 24, 0.445);
+}
+
+.column-gap-separator{
+
+    display: none;
+
+    margin: auto;
+
+    width: 8px;
+    height: 100%;
+
+    border-radius: 10px;
+
+    background-image:linear-gradient(180deg,rgb(113, 191, 255) 0%, rgb(60, 162, 245) 50%);
+}
+
+.column.hidden{
+
+    display: none;
+}
+
 .column:has(.column-header:hover):has(.column-title:not(:hover)){
 
     transform: translateY(-3px);
@@ -122,8 +155,10 @@ body{
 
 
 
+
 .column.highlight{
 
+    
     outline:3px rgb(78, 171, 247) solid;
 }
 
