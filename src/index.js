@@ -32,11 +32,6 @@ const toDoCards = [
         "cards": [
 
 
-            {
-                "title": "Columns must be movable",
-                "description": "",
-                "color": "red"
-            },
 
             {
                 "title": "Remove columns",
@@ -171,6 +166,13 @@ const toDoCards = [
             
             {
                 "title": "Page model serialization",
+                "description": "",
+                "color": "green"
+            },
+
+            
+            {
+                "title": "Columns must be movable",
                 "description": "",
                 "color": "green"
             },

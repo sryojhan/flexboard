@@ -89,6 +89,8 @@ const DOMColumn = (function () {
 
             currentlySelectedColumn = column;
 
+            DOMFlexboard.BeginDrag();
+
         });
 
         header.addEventListener('dragend', (event) => {

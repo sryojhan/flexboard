@@ -189,6 +189,24 @@ const DOMFlexboard = (function () {
 
                 DOMSerializer.Save();
             }
+            else if(event.dataTransfer.types.includes('flexboard/column')){
+
+
+                const id = event.dataTransfer.getData('flexboard/column');
+
+                const column = Column.FindColumn(id);
+
+                column.cardsInColumn.forEach((card) =>{
+
+                    Column.EraseCardFromHierarchy(card);
+                });
+
+                Column.EraseColumn(column);
+                column.MainElement().remove();
+
+
+                DOMSerializer.Save();
+            }
 
         });
 

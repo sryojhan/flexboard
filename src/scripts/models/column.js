@@ -10,6 +10,7 @@ const Column = (function(){
         const cardsInColumn = [];
 
 
+        //This should not be here, this overlaps DOM and Modals
         const MainElement = function(){
 
             return DOMElements.column;
