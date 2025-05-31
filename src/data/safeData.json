@@ -1,0 +1,171 @@
+[
+  {
+    "name": "Pending",
+    "cards": [
+      {
+        "title": "Setup different boards",
+        "description": "",
+        "color": "red"
+      },
+      {
+        "title": "Center save button",
+        "description": "",
+        "color": "yellow"
+      },
+      {
+        "title": "Create cancel button when editing",
+        "description": "",
+        "color": "yellow"
+      },
+      {
+        "title": "Remove done button from view",
+        "description": "Maybe just add an x at the top right",
+        "color": "yellow"
+      },
+      {
+        "title": "copyright @ all rights reserved",
+        "description": "Maybe just add an x at the top right",
+        "color": "yellow"
+      },
+      {
+        "title": "Seleccionar nombre directamente al editar una carta",
+        "description": "",
+        "color": "yellow"
+      },
+      {
+        "title": "Columns can be placed after the add column button",
+        "description": "",
+        "color": "yellow"
+      },
+      {
+        "title": "Sistema de drag and drop personalizado",
+        "description": "",
+        "color": "pink"
+      },
+      {
+        "title": "Dark mode",
+        "description": "",
+        "color": "pink"
+      },
+      {
+        "title": "Collapse cards",
+        "description": "",
+        "color": "pink"
+      },
+      {
+        "title": "Background color selector",
+        "description": "",
+        "color": "pink"
+      },
+      {
+        "title": "Import background image",
+        "description": "",
+        "color": "pink"
+      },
+      {
+        "title": "favicon",
+        "description": "",
+        "color": "pink"
+      },
+      {
+        "title": "Al colapsar la página poner el nombre del tablero",
+        "description": "",
+        "color": "pink"
+      },
+      {
+        "title": "Poner en la cabecera de la página el nombre del tablero actual",
+        "description": "",
+        "color": "pink"
+      },
+      {
+        "title": "Seleccionar una fuente para la pagina",
+        "description": "",
+        "color": "blue"
+      },
+      {
+        "title": "Seleccionar paleta de coleres para la página",
+        "description": "",
+        "color": "blue"
+      },
+      {
+        "title": "Future: filter cards based on color name or description",
+        "description": "",
+        "color": "purple"
+      }
+    ]
+  },
+  {
+    "name": "Currently working on",
+    "cards": []
+  },
+  {
+    "name": "Complete",
+    "cards": [
+      {
+        "title": "Create new columns",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Description overflow",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "save columns names",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Create new cards",
+        "description": "Donete",
+        "color": "green"
+      },
+      {
+        "title": "Serialize data",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Store data",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Disable card",
+        "description": "Disable original card when draggin and the card gap is visible",
+        "color": "green"
+      },
+      {
+        "title": "Remove cards",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Page model serialization",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Columns must be movable",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Remove columns",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Vertical banner elements",
+        "description": "",
+        "color": "green"
+      },
+      {
+        "title": "Vertical panel collapsable elements",
+        "description": "",
+        "color": "green"
+      }
+    ]
+  }
+]

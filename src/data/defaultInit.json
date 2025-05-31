@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Pending",
+    "cards": [
+      {
+        "title": "You can create your custom cards!",
+        "description": "",
+        "color": "blue"
+      },
+      {
+        "title": "Keep track of every task you have to complete",
+        "description": "",
+        "color": "yellow"
+      },
+      {
+        "title": "Personalize each card with a unique color",
+        "description": "",
+        "color": "red"
+      }
+    ]
+  },
+  {
+    "name": "In progress",
+    "cards": [
+      {
+        "title": "Use descriptions to add more information!",
+        "description": "Double click the card to see the full description of the element! Use as much space as you need to use to make use everything is perfectly clear to you later",
+        "color": "pink"
+      },
+      {
+        "title": "You can create new columns and even change the name of already existing ones",
+        "description": "",
+        "color": "purple"
+      },
+      {
+        "title": "Did I say you can have custom colors for your cards?",
+        "description": "You can edit already existing cards by double clicking a card and pressing 'Edit'",
+        "color": "turqoise"
+      },
+      {
+        "title": "Create as many cards as you need to organise your project",
+        "description": "",
+        "color": "orange"
+      }
+    ]
+  },
+  {
+    "name": "I HATE DANIEL I HATE DANIEL I HATE DANIEL",
+    "cards": [
+      {
+        "title": "I HATE DANIEL",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      },
+      {
+        "title": "I HATE DANIEL ",
+        "description": "",
+        "color": "grey"
+      }
+    ]
+  },
+  {
+    "name": "^^",
+    "cards": [
+      {
+        "title": "Have fun!",
+        "description": "",
+        "color": "green"
+      }
+    ]
+  }
+]

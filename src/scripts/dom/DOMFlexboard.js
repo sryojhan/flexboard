@@ -14,10 +14,6 @@ const DOMFlexboard = (function () {
 
     let deleteElementsDragCounter = 0;
 
-    setTimeout(() => {
-
-        deleteElements.classList.remove('load');
-    }, 0);
 
     const BeginDrag = function () {
 

@@ -63,6 +63,7 @@ const DOMSerializer = (function () {
 
     const SaveStringToLocalStorage = function(data){
 
+
         window.localStorage.setItem('storage', data);
     }
 
