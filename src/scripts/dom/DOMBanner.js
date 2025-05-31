@@ -56,11 +56,17 @@ const DOMBanner = (function () {
     });
 
 
+
+
     document.querySelector('#export-board').addEventListener('click', () => {
 
         navigator.clipboard.writeText(
             JSON.stringify(DOMSerializer.SerializeToJSON(), null, 2)
-        ).then(() => alert("Copied to clipboard!")).catch(() => console.error("Error writing to clipboard"));
+        ).then(() => {
+            CreateToast("Copied to clipboard");
+        }
+        )
+            .catch(() => console.error("Error writing to clipboard"));
     });
 
     document.querySelector('#download-board').addEventListener('click', () => {
@@ -69,7 +75,7 @@ const DOMBanner = (function () {
         const json = DOMSerializer.SerializeToJSON();
         const data = JSON.stringify(json, null, 2);
 
-        const blob = new Blob([data], {type: "application/json"});
+        const blob = new Blob([data], { type: "application/json" });
         const url = URL.createObjectURL(blob);
 
 
@@ -83,7 +89,82 @@ const DOMBanner = (function () {
     });
 
 
+    document.querySelectorAll('.not-implemented').forEach((element) => {
 
+
+        element.addEventListener('click', ()=>{
+
+            CreateWarningToast('Not yet implemented');
+        });
+
+    });
+
+
+    //* Toast notifications
+
+    const toastContainer = document.querySelector('.information-toast-container');
+    const CreateToast = function (message) {
+
+        const element = document.createElement('div');
+        element.classList.add('information-toast');
+
+
+        setTimeout(() => {
+            
+            element.classList.add('visible');
+        }, 10);
+        
+        
+        element.textContent = message;
+        toastContainer.append(element);
+
+        const removeElement = function (){
+
+            element.remove();
+        }
+
+        const beginRemove = function () {
+
+            element.classList.remove('visible');
+            setTimeout(
+                ()=>{
+                    removeElement();
+                }, 500
+            );
+        }
+
+        element.addEventListener('click', () => {
+
+            beginRemove();
+        })
+
+        setTimeout(() => {
+
+            beginRemove();
+        }, 5000);
+
+        return element;
+    }
+
+    const CreateErrorTaost = function (message) {
+
+        const elem = CreateToast('Error: ' + message);
+        elem.classList.add('toast-error')
+
+        return elem;
+    }
+
+
+    const CreateWarningToast = function (message) {
+
+        const elem = CreateToast('Warning: ' + message);
+        elem.classList.add('toast-warning')
+
+        return elem;
+    }
+
+
+    return { CreateToast, CreateErrorTaost, CreateWarningToast };
 })();
 
 

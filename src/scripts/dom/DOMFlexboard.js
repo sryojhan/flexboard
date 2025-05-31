@@ -119,9 +119,6 @@ const DOMFlexboard = (function () {
                 Column.EraseColumn(col);
                 Column.AddColumnAtPosition(col, index);
 
-                console.log(Column.columns);
-
-
                 colElement.parentElement.insertBefore(colElement, insertElement);
 
                 DOMSerializer.Save();
