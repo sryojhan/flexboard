@@ -141,11 +141,17 @@ const DOMBanner = (function () {
             );
         }
 
-        element.addEventListener('click', () => {
+        element.addEventListener('click', (e) => {
 
             element.classList.add('fast-delete');
             beginRemove(300);
+
+            e.stopPropagation();
         })
+
+
+        element.addEventListener('hover', (e)=>e.stopPropagation());
+
 
         setTimeout(() => {
 

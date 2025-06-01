@@ -22,10 +22,13 @@ const DOMFlexboard = (function () {
         deleteElementsDragCounter = 0;
         deleteElements.classList.remove('hidden');
 
+        content.classList.add('limit-height');
+
     }
 
     const EndDrag = function () {
 
+        content.classList.remove('limit-height');
 
         deleteElements.classList.add('hidden');
 

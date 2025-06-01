@@ -52,6 +52,8 @@ const DOMModal = (function(){
 
         /* Edit modal*/
 
+        const cancelButton = edit_modal.querySelector('#cancel-button');
+        cancelButton.addEventListener('click', ()=>CloseEditModal());
         
         const saveButton = edit_modal.querySelector('#save-button');
         saveButton.addEventListener('click', (e) => {

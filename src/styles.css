@@ -259,6 +259,7 @@ body {
 
 .viewport {
 
+
     background-size: cover;
 
     background-position: center;
@@ -267,17 +268,24 @@ body {
 
     display: grid;
     grid-template-rows: 1fr;
+
+    position: relative;
 }
 
 
 .content {
 
+    --max-card-height: 100px;
+
     position: relative;
 
     width: 100%;
+    height: 100%;
+    max-height: 100%;
+
+    flex: 0 0 100%;
+
     display: flex;
-
-
     gap: 10px;
 
     overflow: auto;
@@ -287,8 +295,17 @@ body {
     box-sizing: border-box;
     padding: 10px;
 
-    --max-card-height: 100px;
+    transition: max-height 0.2s ease-in-out;
+
 }
+
+.content.limit-height{
+
+
+    transition: max-height 0.2s ease-in-out 0.3s;
+    max-height: calc(100% - 140px);
+}
+
 
 .content.uncollapseCards {
 
@@ -301,7 +318,7 @@ body {
     flex: 0 0 300px;
     align-self: flex-start;
 
-    background-color: #f1f2f4;
+    background-color: #f1f2f4c4;
 
 
     box-sizing: border-box;
@@ -837,6 +854,7 @@ body {
     border: dashed 5px var(--element-outline-color);
 
     width: var(--element-width);
+
     height: 100px;
 
     color: var(--element-bin-color);
@@ -881,8 +899,6 @@ body {
 
 }
 
-
-
 .information-toast-container{
 
     position: fixed;
@@ -890,13 +906,15 @@ body {
     height: 100%;
     width: 300px;
 
-    bottom: 20px;
-    right: 20px;
+    top: 20px;
+    left: calc(50% - 150px);
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 10px;
+
+    pointer-events: none;
 }
 
 .information-toast{
@@ -919,17 +937,16 @@ body {
     position: relative;
     overflow: hidden;
 
-    pointer-events: none;
-
-    
-    transition: transform 1s 2s linear, opacity 3s linear;
-    transform: translateY(50px);
+    transition: transform .5s 2.5s linear, opacity 3s linear;
+    transform: translateY(-50px);
     opacity: 0;
 
     
     box-sizing: border-box;
     
     padding: 10px 30px 10px 50px;
+
+    pointer-events: all;
 }
 
 .information-toast.fast-delete{
@@ -965,7 +982,6 @@ body {
     position: absolute;
 
     right: 15px;
-
     pointer-events: all;
 
 }
