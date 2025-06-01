@@ -187,6 +187,11 @@ body {
 
 }
 
+.banner-button:disabled:hover{
+
+    cursor:default;
+}
+
 
 
 .banner-button::before {
@@ -213,7 +218,7 @@ body {
     font-weight: 700;
 }
 
-.banner-button:hover::before {
+.banner-button:not(:disabled):hover::before {
 
     width: 100%;
     cursor: pointer;
@@ -917,16 +922,25 @@ body {
     pointer-events: none;
 
     
+    transition: transform 1s 2s linear, opacity 3s linear;
     transform: translateY(50px);
     opacity: 0;
 
-    transition: transform .3s linear, opacity .3s linear;
+    
+    box-sizing: border-box;
+    
+    padding: 10px 30px 10px 50px;
+}
 
+.information-toast.fast-delete{
+
+    transition: transform .3s linear, opacity .3s linear;
 }
 
 
 .information-toast.visible{
     
+    transition: transform .3s linear, opacity .3s linear;
     transform: translateY(0px);
     opacity: 1;
 }

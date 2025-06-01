@@ -28,6 +28,9 @@ const DOMBanner = (function () {
     const viewportBackground = document.querySelector('.viewport');
     const backgroundImageSelector = document.querySelector('#background-image-selector');
 
+    const removeBackground = document.querySelector('#remove-background');
+    removeBackground.disabled = true;
+
 
     document.querySelector('#board-background-image').addEventListener('click', () => {
 
@@ -44,14 +47,19 @@ const DOMBanner = (function () {
             reader.addEventListener('load', () => {
 
                 viewportBackground.style.backgroundImage = `url(${reader.result})`;
+
+                removeBackground.disabled = false;
             });
 
             reader.readAsDataURL(file);
         }
     });
 
-    document.querySelector('#remove-background').addEventListener('click', () => {
+    removeBackground.addEventListener('click', () => {
 
+
+        removeBackground.disabled = true;
+        backgroundImageSelector.value = null;
         viewportBackground.style.backgroundImage = "";
     });
 
@@ -92,7 +100,7 @@ const DOMBanner = (function () {
     document.querySelectorAll('.not-implemented').forEach((element) => {
 
 
-        element.addEventListener('click', ()=>{
+        element.addEventListener('click', () => {
 
             CreateWarningToast('Not yet implemented');
         });
@@ -110,37 +118,38 @@ const DOMBanner = (function () {
 
 
         setTimeout(() => {
-            
+
             element.classList.add('visible');
         }, 10);
-        
-        
+
+
         element.textContent = message;
         toastContainer.append(element);
 
-        const removeElement = function (){
+        const removeElement = function () {
 
             element.remove();
         }
 
-        const beginRemove = function () {
+        const beginRemove = function (deleteTime) {
 
             element.classList.remove('visible');
             setTimeout(
-                ()=>{
+                () => {
                     removeElement();
-                }, 500
+                }, deleteTime
             );
         }
 
         element.addEventListener('click', () => {
 
-            beginRemove();
+            element.classList.add('fast-delete');
+            beginRemove(300);
         })
 
         setTimeout(() => {
 
-            beginRemove();
+            beginRemove(3000);
         }, 5000);
 
         return element;

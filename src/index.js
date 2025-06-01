@@ -28,7 +28,7 @@ const Initialise = function () {
 
 window.Serialize = DOMSerializer.SerializeToJSON;
 
-
+DOMBanner.CreateToast("Remember: you can close the left banner by double clicking it");
 
 
 Initialise();
