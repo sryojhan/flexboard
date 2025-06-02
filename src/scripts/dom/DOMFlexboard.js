@@ -34,6 +34,7 @@ const DOMFlexboard = (function () {
 
         DOMColumn.ClearHighlight();
         DOMCard.UnAppedCardGap();
+        DOMColumn.EndScroll();
     }
 
 
@@ -58,6 +59,10 @@ const DOMFlexboard = (function () {
                 const { insertElement: afterElement } = DOMCard.CalculateInsertPosition(columnContent, event.clientY);
 
                 DOMCard.AppendCardGapBeforeElement(columnContent, afterElement);
+
+
+                DOMColumn.EndScroll();
+                DOMColumn.CalculateScroll(columnContent, event.clientY);
 
 
             } else if (event.dataTransfer.types.includes('flexboard/column')) {

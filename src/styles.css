@@ -300,7 +300,7 @@ body {
     box-sizing: border-box;
     padding: 10px;
 
-    transition: max-height 0.2s ease-in-out;
+    transition: max-height 0.2s ease-in-out 0.3s;
 
 }
 

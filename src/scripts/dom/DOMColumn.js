@@ -18,9 +18,9 @@ const DOMColumn = (function () {
 
     let currentlySelectedColumn = null;
 
-    addColumnButton.addEventListener('click', ()=>{
+    addColumnButton.addEventListener('click', () => {
 
-        const col = CreateColumnElement("");    
+        const col = CreateColumnElement("");
 
         const tittle = col.querySelector('.column-title');
         const tittleEditble = col.querySelector('.column-title-editable');
@@ -101,7 +101,7 @@ const DOMColumn = (function () {
                 column.ghostImage = null;
             }
 
-            if(column.gapElement){
+            if (column.gapElement) {
                 column.gapElement.remove();
                 column.gapElement = null;
             }
@@ -135,9 +135,9 @@ const DOMColumn = (function () {
             DOMBoard.SaveBoard();
         })
 
-        titleEditable.addEventListener('keydown', (e)=>{
+        titleEditable.addEventListener('keydown', (e) => {
 
-            if(e.key === 'Enter'){
+            if (e.key === 'Enter') {
 
                 titleEditable.blur();
             }
@@ -163,14 +163,14 @@ const DOMColumn = (function () {
     }
 
 
-    const HideDraggedColumn = function(){
+    const HideDraggedColumn = function () {
 
         currentlySelectedColumn.classList.add('highlight');
         currentlySelectedColumn.classList.add('hidden');
     }
 
 
-    const CalculateInsertPosition = function(xPosition){
+    const CalculateInsertPosition = function (xPosition) {
 
         const parent = currentlySelectedColumn.parentElement;
 
@@ -179,14 +179,14 @@ const DOMColumn = (function () {
         let afterHidden = false;
         let selectedAfterHidden = false;
 
-        Array.from(parent.children).forEach((col, idx) =>{
+        Array.from(parent.children).forEach((col, idx) => {
 
             //col.classList.contains('column-gap') || col.classList.contains('hidden')
-            if(col.classList.contains('add-column')){
+            if (col.classList.contains('add-column')) {
                 return;
             }
 
-            if(col.classList.contains('hidden')){
+            if (col.classList.contains('hidden')) {
                 afterHidden = true;
                 return;
             }
@@ -194,18 +194,88 @@ const DOMColumn = (function () {
             const rect = col.getBoundingClientRect();
             const centerPoint = (rect.left + rect.right) * 0.5;
 
-            if(xPosition > centerPoint){
+            if (xPosition > centerPoint) {
 
-                if(afterHidden) selectedAfterHidden = true;
+                if (afterHidden) selectedAfterHidden = true;
                 maxValidIdx = idx + 1;
             }
         });
 
-        return {insertElement: parent.children[maxValidIdx], index: (selectedAfterHidden ? maxValidIdx -1 :  maxValidIdx)};
+        return { insertElement: parent.children[maxValidIdx], index: (selectedAfterHidden ? maxValidIdx - 1 : maxValidIdx) };
     }
 
 
-    const AppendColumnGapBeforeElement = function(element){
+
+    let scrollData = {
+
+        isScrolling: false,
+        scrollDirection: 0,
+        scrollElement: null,
+        currentScroll: 0
+    }
+
+    const BeginScroll = function (direction, scrollElement) {
+
+        scrollData.isScrolling = true;
+        scrollData.scrollDirection = direction;
+        scrollData.scrollElement = scrollElement;
+        scrollData.currentScroll = scrollElement.scrollTop;
+
+        requestAnimationFrame(Scroll);
+    }
+
+    const EndScroll = function () {
+
+        scrollData.isScrolling = false;
+        scrollData.scrollDirection = 0;
+        scrollData.scrollElement = null;
+        scrollData.currentScroll = 0;
+    }
+
+    const Scroll = function () {
+
+        if (!scrollData.isScrolling){
+
+            return;
+        }
+
+        const scrollSpeed = .1;
+
+        scrollData.currentScroll += scrollData.scrollDirection * scrollSpeed;
+        scrollData.scrollElement.scrollTop = scrollData.currentScroll;
+
+        requestAnimationFrame(Scroll);
+    }
+
+    const CalculateScroll = function (columnContent, yPosition) {
+
+        if(scrollData.isScrolling) return;
+
+        const scrollElement = columnContent.parentElement;
+        const rect = scrollElement.getBoundingClientRect();
+
+        const scrollMargin = 300;
+
+
+        if (scrollElement.clientHeight == scrollElement.scrollHeight) {
+
+            return;
+        }
+
+
+        if (yPosition < rect.top + scrollMargin) {
+
+            BeginScroll(-1, scrollElement);
+        }
+        else if (yPosition > rect.bottom - scrollMargin) {
+
+            BeginScroll(1, scrollElement);
+        }
+        
+    }
+
+
+    const AppendColumnGapBeforeElement = function (element) {
 
         const parent = currentlySelectedColumn.parentElement;
         const gapElement = currentlySelectedColumn.gapElement;
@@ -213,8 +283,8 @@ const DOMColumn = (function () {
         parent.insertBefore(gapElement, element);
     }
 
-    
-    const CreateGapElement = function(column){
+
+    const CreateGapElement = function (column) {
 
         const gapElement = document.createElement('div');
         gapElement.classList.add('column-gap');
@@ -272,23 +342,23 @@ const DOMColumn = (function () {
     }
 
 
-    const ClearAllColumns = function(){
+    const ClearAllColumns = function () {
 
-        for(const col of parentContent.children){
+        for (const col of parentContent.children) {
 
-            if(col.classList.contains('add-columnn')) continue;
-            
+            if (col.classList.contains('add-columnn')) continue;
+
         }
 
-        while(parentContent.children.length > 1){
+        while (parentContent.children.length > 1) {
 
             parentContent.children[0].remove();
         }
-        
+
     }
 
 
-    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement, HideDraggedColumn, CalculateInsertPosition, AppendColumnGapBeforeElement, ClearAllColumns};
+    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement, HideDraggedColumn, CalculateInsertPosition, AppendColumnGapBeforeElement, ClearAllColumns, CalculateScroll, EndScroll};
 
 })();
 
