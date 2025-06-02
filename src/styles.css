@@ -145,6 +145,11 @@ body {
     margin-bottom: 5px;
 }
 
+.banner-group-title.board-name{
+
+    white-space: normal;
+}
+
 .banner-group-title h1{
 
     margin: 0px;
