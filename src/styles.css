@@ -307,7 +307,7 @@ body {
 .content.limit-height{
 
 
-    transition: max-height 0.2s ease-in-out 0.3s;
+    transition: max-height 0.2s ease-in-out 0.1s;
     max-height: calc(100% - 140px);
 }
 
