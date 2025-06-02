@@ -27,23 +27,23 @@ const DOMModal = (function () {
         });
 
 
-        edit_modalBackground.addEventListener('click', () => {
+        edit_modalBackground.addEventListener('mousedown', (event) => {
 
             CloseEditModal();
         });
 
-        modalBackground.addEventListener('click', () => {
+        modalBackground.addEventListener('mousedown', (event) => {
 
             CloseModal();
         });
         
 
 
-        edit_modal.addEventListener('click', (e) => {
+        edit_modal.addEventListener('mousedown', (e) => {
             e.stopPropagation();
         });
 
-        modal.addEventListener('click', (e) => {
+        modal.addEventListener('mousedown', (e) => {
             e.stopPropagation();
         });
 
@@ -116,6 +116,8 @@ const DOMModal = (function () {
 
         editTitle.value = card.title;
         editDescription.value = card.description;
+
+        editTitle.focus();
     }
 
     const SaveEditModalValues = function () {
@@ -170,6 +172,8 @@ const DOMModal = (function () {
 
     const CloseModal = function () {
 
+        if(modalBackground.classList.contains('hidden')) return;
+
         modal.classList.remove(lastCard.color);
         modalBackground.classList.add('hidden');
     }
@@ -182,6 +186,9 @@ const DOMModal = (function () {
     }
 
     const CloseEditModal = function () {
+
+        if(edit_modalBackground.classList.contains('hidden')) return;
+
 
         if (isBeingInitialised) {
 

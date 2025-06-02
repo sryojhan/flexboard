@@ -57,7 +57,8 @@ const DOMColumn = (function () {
         titleEditable.spellcheck = false;
         titleEditable.type = "text";
         titleEditable.value = name;
-
+        titleEditable.draggable = true;
+        
         header.append(dragImage);
         header.append(title);
         header.append(titleEditable);
@@ -78,6 +79,13 @@ const DOMColumn = (function () {
         column.append(header);
         column.append(scrollArea);
 
+        
+        titleEditable.addEventListener('dragstart', (event)=>{
+
+
+            event.preventDefault();
+            event.stopPropagation();
+        });
 
         header.addEventListener('dragstart', (event) => {
 
@@ -142,6 +150,7 @@ const DOMColumn = (function () {
                 titleEditable.blur();
             }
         });
+
 
 
         addCard.addEventListener('click', (e) => {

@@ -158,6 +158,20 @@ body {
 .banner-group-title h2 {
 
     margin: 0px;
+    font-size: 20px;
+}
+
+#board-name{
+
+    width: 100%;
+    font-family: monospace;
+
+    border: none;
+    display: block;
+    font-size: 20px;
+    margin: 0;
+    font-weight: bold;
+
 }
 
 

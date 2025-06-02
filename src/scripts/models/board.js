@@ -54,10 +54,6 @@ const Board = (function () {
 
         let str = defaultBoardNames[idx];
 
-        while (data.boards.includes(str)) {
-            str += ' (1)';
-        }
-
         return str;
     }
 

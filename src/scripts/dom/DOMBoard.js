@@ -23,8 +23,23 @@ const DOMBoard = (function(){
         const board = Board.data.GetCurrentBoard();
 
         const boardNameElement = document.querySelector('#board-name');
-        boardNameElement.textContent = board.name;
-        
+        boardNameElement.value = board.name;
+
+        boardNameElement.addEventListener('keydown', (event)=>{
+
+            if(event.key === "Enter"){
+                boardNameElement.blur();
+            }
+        });
+
+        boardNameElement.addEventListener('blur', ()=>{
+
+            board.name = boardNameElement.value;
+            Board.SaveBoardData();
+            DOMBanner.InitialiseBoardSelector();
+        });
+
+
 
         const boardData = Serializer.LoadJSON(board.id);
 
