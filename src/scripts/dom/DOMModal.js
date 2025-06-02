@@ -1,8 +1,10 @@
 import { DOMCard } from "./DOMCard";
 import { DOMBoard } from "./DOMBoard";
+import { Card } from "../models/card";
+import { Column } from "../models/column";
 
 
-const DOMModal = (function(){
+const DOMModal = (function () {
 
 
     const edit_modalBackground = document.querySelector('.modal-background.card-edit');
@@ -36,14 +38,14 @@ const DOMModal = (function(){
 
         /* Show modal*/
         const doneButton = modal.querySelector('#show-modal-done')
-        doneButton.addEventListener('click', (e)=>{
+        doneButton.addEventListener('click', (e) => {
 
             CloseModal();
         });
 
 
         const editButton = modal.querySelector('#show-modal-edit')
-        editButton.addEventListener('click', (e)=>{
+        editButton.addEventListener('click', (e) => {
 
             CloseModal();
             OpenEditModal(lastCard);
@@ -52,9 +54,13 @@ const DOMModal = (function(){
 
         /* Edit modal*/
 
+
         const cancelButton = edit_modal.querySelector('#cancel-button');
-        cancelButton.addEventListener('click', ()=>CloseEditModal());
-        
+        cancelButton.addEventListener('click', () => {
+
+            CloseEditModal()
+        });
+
         const saveButton = edit_modal.querySelector('#save-button');
         saveButton.addEventListener('click', (e) => {
 
@@ -100,7 +106,7 @@ const DOMModal = (function(){
         editDescription.value = card.description;
     }
 
-    const SaveEditModalValues = function(){
+    const SaveEditModalValues = function () {
 
         lastCard.title = editTitle.value;
         lastCard.description = editDescription.value;
@@ -109,6 +115,8 @@ const DOMModal = (function(){
 
         DOMCard.UpdateElement(lastCard);
         DOMBoard.SaveBoard();
+
+        isBeingInitialised = false;
     }
 
 
@@ -154,14 +162,38 @@ const DOMModal = (function(){
         modalBackground.classList.add('hidden');
     }
 
-    const CloseEditModal = function () {
 
-        edit_modalBackground.classList.add('hidden');
+    let isBeingInitialised = false;
+    const FirstCardInitialisation = function () {
+
+        isBeingInitialised = true;
     }
 
-    return {modal: {OpenModal, CloseModal}, editModal: {OpenEditModal, CloseEditModal}}
+    const CloseEditModal = function () {
+
+        if (isBeingInitialised) {
+
+            const card = lastCard;
+
+            //Remove card from columns
+            Column.EraseCardFromHierarchy(card);
+
+            //Remove card from card list
+            Card.RemoveCard(card);
+
+            //Remove card from DOM
+            card.element.remove();
+
+            DOMBoard.SaveBoard();
+        }
+
+        edit_modalBackground.classList.add('hidden');
+        isBeingInitialised = false;
+    }
+
+    return { modal: { OpenModal, CloseModal }, editModal: { OpenEditModal, CloseEditModal, FirstCardInitialisation } }
 
 })();
 
 
-export {DOMModal}
+export { DOMModal }

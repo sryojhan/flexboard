@@ -151,6 +151,8 @@ const DOMColumn = (function () {
 
             column.data.PushCard(card.data);
 
+
+            DOMModal.editModal.FirstCardInitialisation();
             DOMModal.editModal.OpenEditModal(card.data);
         });
 
