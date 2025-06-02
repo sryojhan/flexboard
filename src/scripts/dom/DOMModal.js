@@ -16,6 +16,16 @@ const DOMModal = (function () {
 
     const InitialiseModal = (function () {
 
+        
+        window.addEventListener('keydown', (event)=>{
+
+            if (event.key === 'Escape') {
+
+                CloseModal();
+                CloseEditModal();
+            }
+        });
+
 
         edit_modalBackground.addEventListener('click', () => {
 
@@ -26,6 +36,8 @@ const DOMModal = (function () {
 
             CloseModal();
         });
+        
+
 
         edit_modal.addEventListener('click', (e) => {
             e.stopPropagation();
