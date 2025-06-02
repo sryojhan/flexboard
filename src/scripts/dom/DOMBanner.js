@@ -97,6 +97,14 @@ const DOMBanner = (function () {
 
     });
 
+
+    document.querySelector('#create-board').addEventListener('click', () => {
+
+        Board.CreateBoard();
+        InitialiseBoardSelector();
+
+    });
+
     document.querySelector('#clear-all-data').addEventListener('click', () => {
         Serializer.ClearData();
 
@@ -114,12 +122,12 @@ const DOMBanner = (function () {
 
     });
 
-    
-    const ClearBoardSelector = function(){
+
+    const ClearBoardSelector = function () {
 
         const boardSelector = document.querySelector('#board-selector');
 
-        while(boardSelector.children.length > 0){
+        while (boardSelector.children.length > 0) {
 
             boardSelector.children[0].remove();
         }
@@ -127,29 +135,36 @@ const DOMBanner = (function () {
     }
 
 
-    const InitialiseBoardSelector = function(){
+    const InitialiseBoardSelector = function () {
 
         ClearBoardSelector();
 
         const boardSelector = document.querySelector('#board-selector');
 
-        const allBoards = Board.boards;
-        const currenBoard = Board.GetCurrentBoard();
+        const allBoards = Board.data.boards;
 
-        allBoards.forEach((board, idx) =>{
+        const currentBoard = Board.data.GetCurrentBoard();
 
-            if(board === currenBoard) return;
+        allBoards.forEach((board) => {
+
 
             const button = document.createElement('button');
             button.classList.add('banner-button');
             button.classList.add('not-implemented');
 
-            button.textContent = board;
+            button.textContent = board.name;
+            button.boardId = board.id;
 
-            
+            if (board === currentBoard)
+            {
+                button.disabled = true;
+            }
+
             button.addEventListener('click', () => {
 
-                CreateWarningToast('Not yet implemented');
+
+                Board.ChangeBoard(button.boardId);
+                DOMBoard.LoadBoard();
             });
 
 
@@ -207,7 +222,7 @@ const DOMBanner = (function () {
         })
 
 
-        element.addEventListener('hover', (e)=>e.stopPropagation());
+        element.addEventListener('hover', (e) => e.stopPropagation());
 
 
         setTimeout(() => {
@@ -236,7 +251,7 @@ const DOMBanner = (function () {
     }
 
 
-    return { CreateToast, CreateErrorToast, CreateWarningToast, InitialiseBoardSelector};
+    return { CreateToast, CreateErrorToast, CreateWarningToast, InitialiseBoardSelector };
 })();
 
 

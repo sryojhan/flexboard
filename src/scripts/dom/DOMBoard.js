@@ -5,7 +5,7 @@ import { Column } from "../models/column";
 import {DOMColumn} from "./DOMColumn"
 import { Serializer } from "../models/Serializer";
 import { DOMCard } from "./DOMCard";
-
+import { DOMBanner } from "./DOMBanner";
 
 const DOMBoard = (function(){
 
@@ -16,18 +16,21 @@ const DOMBoard = (function(){
         return currentBoard;
     }
 
-    const LoadBoard = function(boardName){
+    const LoadBoard = function(){
 
         ClearCurrentBoard();
 
+        const board = Board.data.GetCurrentBoard();
+
         const boardNameElement = document.querySelector('#board-name');
-        boardNameElement.textContent = boardName;
+        boardNameElement.textContent = board.name;
         
 
-        const boardData = Serializer.LoadJSON(boardName);
+        const boardData = Serializer.LoadJSON(board.id);
 
         if(boardData === null){
 
+            DOMBanner.InitialiseBoardSelector();
             return;
         }
 
@@ -44,8 +47,7 @@ const DOMBoard = (function(){
             });
         });
 
-
-        //TODO: Update current board in board.js
+        DOMBanner.InitialiseBoardSelector();
     }
 
     
@@ -87,8 +89,9 @@ const DOMBoard = (function(){
 
         const data = CreateJSONFromBoard();
 
-        const boardName = Board.GetCurrentBoard();
-        Serializer.SaveJSON(boardName, data);
+        const board = Board.data.GetCurrentBoard();
+
+        Serializer.SaveJSON(board.id, data);
     }
 
 
