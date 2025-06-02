@@ -1,5 +1,5 @@
+import { Board } from "../models/board";
 import { DOMBoard } from "./DOMBoard";
-
 
 const DOMBanner = (function () {
 
@@ -107,6 +107,55 @@ const DOMBanner = (function () {
 
     });
 
+    
+    const ClearBoardSelector = function(){
+
+        const boardSelector = document.querySelector('#board-selector');
+
+        while(boardSelector.children.length > 0){
+
+            boardSelector.children[0].remove();
+        }
+
+    }
+
+
+    const InitialiseBoardSelector = function(){
+
+        ClearBoardSelector();
+
+        const boardSelector = document.querySelector('#board-selector');
+
+        const allBoards = Board.boards;
+        const currenBoard = Board.GetCurrentBoard();
+
+        allBoards.forEach((board, idx) =>{
+
+            if(board === currenBoard) return;
+
+            const button = document.createElement('button');
+            button.classList.add('banner-button');
+            button.classList.add('not-implemented');
+
+            button.textContent = board;
+
+            
+            button.addEventListener('click', () => {
+
+                CreateWarningToast('Not yet implemented');
+            });
+
+
+            boardSelector.append(button);
+        });
+
+    }
+
+
+
+
+
+
 
     // TODO: mover esto de aqui
     //* Toast notifications
@@ -180,7 +229,7 @@ const DOMBanner = (function () {
     }
 
 
-    return { CreateToast, CreateErrorToast, CreateWarningToast };
+    return { CreateToast, CreateErrorToast, CreateWarningToast, InitialiseBoardSelector};
 })();
 
 

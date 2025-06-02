@@ -31,6 +31,8 @@ const Initialise = function () {
     Board.LoadBoardData();
 
     DOMBoard.LoadBoard(Board.GetCurrentBoard());
+
+    DOMBanner.InitialiseBoardSelector();
 }
 
 

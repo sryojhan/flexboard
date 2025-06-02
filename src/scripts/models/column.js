@@ -76,7 +76,8 @@ const Column = (function(){
     }
 
     const ClearAllColumns = function(){
-        columns = [];
+        
+        columns.length = 0;
     }
 
 

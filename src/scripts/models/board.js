@@ -31,7 +31,7 @@ const Board = (function(){
     }
 
 
-    return {LoadBoardData, SaveBoardData, GetCurrentBoard}
+    return {LoadBoardData, SaveBoardData, GetCurrentBoard, boards}
 
 }());
 

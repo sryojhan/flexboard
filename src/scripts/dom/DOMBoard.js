@@ -27,6 +27,8 @@ const DOMBoard = (function(){
 
     const LoadBoard = function(boardName){
 
+        ClearCurrentBoard();
+
         const boardNameElement = document.querySelector('#board-name');
         boardNameElement.textContent = boardName;
         
@@ -80,6 +82,7 @@ const DOMBoard = (function(){
             data[idx] = { name, cards };
         });
 
+
         return data;
     }
 
@@ -99,8 +102,6 @@ const DOMBoard = (function(){
         Column.ClearAllColumns();
         Card.ClearAllCards();
     }
-
-
 
     return {GetCurrentBoardName, LoadBoard, SaveBoard, ClearCurrentBoard, CreateJSONFromBoard}
 })();

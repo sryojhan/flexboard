@@ -21,7 +21,7 @@ const Card = (function () {
 
     const ClearAllCards = function(){
 
-        cards = [];
+        cards.length = 0;
     }
 
     
