@@ -27,7 +27,6 @@ const Initialise = function () {
     //Serializer.ClearData();
     //Serializer.Load(safeData);
 
-    Board.SaveBoardData();
     Board.LoadBoardData();
 
     DOMBoard.LoadBoard(Board.GetCurrentBoard());

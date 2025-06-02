@@ -7,8 +7,18 @@ const Board = (function(){
 
     const boardDataName = 'flexboard: board-data'
 
-    let boards = ["storage", "Programmming", "Music"];
+    let boards = [];
     let currentBoard = 0;
+
+    const defaultBoardNames = ["my AWESOME board", "mildly interesting board", "EPIC MICKEY 2 baby"]
+    
+    
+    const GetRandomBoardName = function(){
+
+        const idx = Math.floor(Math.random() * defaultBoardNames.length);
+
+        return defaultBoardNames[idx];
+    }
 
 
     const SaveBoardData = function(){
@@ -19,8 +29,16 @@ const Board = (function(){
 
     const LoadBoardData = function(){
 
+        const data = Serializer.LoadJSON(boardDataName);
+
+        if(data === null)
+        {
+            boards = [GetRandomBoardName()];
+            SaveBoardData();
+        }
+        else
         (
-            {currentBoard, boards} = Serializer.LoadJSON(boardDataName)
+            {currentBoard, boards} = data
         );
     }
 

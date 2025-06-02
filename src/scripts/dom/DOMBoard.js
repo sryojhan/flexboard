@@ -9,16 +9,7 @@ import { DOMCard } from "./DOMCard";
 
 const DOMBoard = (function(){
 
-    const defaultBoardNames = ["my AWESOME board", "mildly interesting board", "EPIC MICKEY 2 baby"]
-    
-    
-    const GetRandomBoardName = function(){
-
-        const idx = Math.floor(Math.random() * defaultBoardNames.length);
-
-        return defaultBoardNames[idx];
-    }
-
+   
 
     const GetCurrentBoardName = function(){
 
@@ -34,6 +25,11 @@ const DOMBoard = (function(){
         
 
         const boardData = Serializer.LoadJSON(boardName);
+
+        if(boardData === null){
+
+            return;
+        }
 
         boardData.forEach((columns) =>{
 

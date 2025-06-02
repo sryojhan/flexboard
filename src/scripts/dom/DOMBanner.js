@@ -1,4 +1,5 @@
 import { Board } from "../models/board";
+import { Serializer } from "../models/Serializer";
 import { DOMBoard } from "./DOMBoard";
 
 const DOMBanner = (function () {
@@ -94,6 +95,12 @@ const DOMBanner = (function () {
         a.click();
         URL.revokeObjectURL(url);
 
+    });
+
+    document.querySelector('#clear-all-data').addEventListener('click', () => {
+        Serializer.ClearData();
+
+        CreateToast('Data removed correctly');
     });
 
 
