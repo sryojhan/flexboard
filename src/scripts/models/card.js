@@ -19,7 +19,7 @@ const Card = (function () {
     }
 
 
-    const ClearAllCards =function(){
+    const ClearAllCards = function(){
 
         cards = [];
     }
@@ -35,6 +35,7 @@ const Card = (function () {
         const idx = cards.indexOf(card);
         cards.splice(idx, 1);
     }
+
 
     return {CreateCard, ClearAllCards, FindCard, RemoveCard};
 

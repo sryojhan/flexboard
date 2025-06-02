@@ -1,11 +1,14 @@
 import "./styles.css";
 
 import "./scripts/dom/DOMFlexboard";
-import { DOMSerializer } from "./scripts/dom/DOMSerializer";
+import { Serializer } from "./scripts/models/Serializer";
 import { DOMBanner } from "./scripts/dom/DOMBanner";
+
+import { DOMBoard } from "./scripts/dom/DOMBoard";
 
 import defaultInit from "./data/defaultInit.json"
 import safeData from "./data/safeData.json"
+import { Board } from "./scripts/models/board";
 
 setTimeout(()=>{
 
@@ -21,14 +24,19 @@ setTimeout(()=>{
 const Initialise = function () {
 
 
-    //DOMSerializer.ClearData();
-    DOMSerializer.Load(safeData);
+    //Serializer.ClearData();
+    //Serializer.Load(safeData);
+
+    Board.SaveBoardData();
+    Board.LoadBoardData();
+
+    DOMBoard.LoadBoard(Board.GetCurrentBoard());
 }
 
 
-window.Serialize = DOMSerializer.SerializeToJSON;
+window.Serialize = Serializer.SerializeToJSON;
 
 DOMBanner.CreateToast("Pro tip: Close the left banner by double clicking it!");
 
-
 Initialise();
+

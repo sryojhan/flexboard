@@ -1,5 +1,5 @@
 import { DOMCard } from "./DOMCard";
-import { DOMSerializer } from "./DOMSerializer";
+import { DOMBoard } from "./DOMBoard";
 
 
 const DOMModal = (function(){
@@ -107,8 +107,8 @@ const DOMModal = (function(){
 
         lastCard.color = colors[currentlySelectedColor];
 
-        DOMCard.UpdateElement(lastCard)
-        DOMSerializer.Save();
+        DOMCard.UpdateElement(lastCard);
+        DOMBoard.SaveBoard();
     }
 
 

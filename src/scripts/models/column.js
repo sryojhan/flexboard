@@ -75,8 +75,12 @@ const Column = (function(){
         columns.splice(idx, 0, column);
     }
 
+    const ClearAllColumns = function(){
+        columns = [];
+    }
 
-    return {columns, CreateColumn, FindColumn, EraseCardFromHierarchy, EraseColumn, AddColumnAtPosition};
+
+    return {columns, CreateColumn, FindColumn, EraseCardFromHierarchy, EraseColumn, AddColumnAtPosition, ClearAllColumns};
 })();
 
 export {Column};

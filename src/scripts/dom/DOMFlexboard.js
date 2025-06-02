@@ -1,9 +1,9 @@
 
 import { DOMColumn } from "./DOMColumn"
 import { DOMCard } from "./DOMCard";
-import { DOMSerializer } from "./DOMSerializer";
 import { Card } from "../models/card";
 import { Column } from "../models/column";
+import { DOMBoard } from "./DOMBoard";
 
 const DOMFlexboard = (function () {
 
@@ -105,8 +105,7 @@ const DOMFlexboard = (function () {
 
                 DOMCard.UnAppedCardGap();
 
-
-                DOMSerializer.Save();
+                DOMBoard.SaveBoard();
             }
 
 
@@ -124,7 +123,7 @@ const DOMFlexboard = (function () {
 
                 colElement.parentElement.insertBefore(colElement, insertElement);
 
-                DOMSerializer.Save();
+                DOMBoard.SaveBoard();
             }
 
         });
@@ -182,8 +181,7 @@ const DOMFlexboard = (function () {
                 //Remove card from DOM
                 card.element.remove();
 
-
-                DOMSerializer.Save();
+                DOMBoard.SaveBoard();
             }
             else if(event.dataTransfer.types.includes('flexboard/column')){
 
@@ -201,7 +199,7 @@ const DOMFlexboard = (function () {
                 column.MainElement().remove();
 
 
-                DOMSerializer.Save();
+                DOMBoard.SaveBoard();
             }
 
         });

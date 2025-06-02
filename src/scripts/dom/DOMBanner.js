@@ -1,4 +1,4 @@
-import { DOMSerializer } from "./DOMSerializer";
+import { DOMBoard } from "./DOMBoard";
 
 
 const DOMBanner = (function () {
@@ -69,7 +69,7 @@ const DOMBanner = (function () {
     document.querySelector('#export-board').addEventListener('click', () => {
 
         navigator.clipboard.writeText(
-            JSON.stringify(DOMSerializer.SerializeToJSON(), null, 2)
+            JSON.stringify(DOMBoard.CreateJSONFromBoard(), null, 2)
         ).then(() => {
             CreateToast("Copied to clipboard");
         }
@@ -80,7 +80,7 @@ const DOMBanner = (function () {
     document.querySelector('#download-board').addEventListener('click', () => {
 
 
-        const json = DOMSerializer.SerializeToJSON();
+        const json = DOMBoard.CreateJSONFromBoard();
         const data = JSON.stringify(json, null, 2);
 
         const blob = new Blob([data], { type: "application/json" });
@@ -108,6 +108,7 @@ const DOMBanner = (function () {
     });
 
 
+    // TODO: mover esto de aqui
     //* Toast notifications
 
     const toastContainer = document.querySelector('.information-toast-container');
@@ -161,7 +162,7 @@ const DOMBanner = (function () {
         return element;
     }
 
-    const CreateErrorTaost = function (message) {
+    const CreateErrorToast = function (message) {
 
         const elem = CreateToast('Error: ' + message);
         elem.classList.add('toast-error')
@@ -179,7 +180,7 @@ const DOMBanner = (function () {
     }
 
 
-    return { CreateToast, CreateErrorTaost, CreateWarningToast };
+    return { CreateToast, CreateErrorToast, CreateWarningToast };
 })();
 
 

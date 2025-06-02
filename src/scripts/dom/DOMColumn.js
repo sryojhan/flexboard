@@ -4,10 +4,10 @@ import { DOMCard } from "./DOMCard";
 import { DOMModal } from "./DOMModal";
 
 import dragHandle from "./../../images/drag-handle.svg";
-import { DOMSerializer } from "./DOMSerializer";
 
 import { Column } from "../models/column";
 import DOMFlexboard from "./DOMFlexboard";
+import { DOMBoard } from "./DOMBoard";
 
 const DOMColumn = (function () {
 
@@ -132,7 +132,7 @@ const DOMColumn = (function () {
 
             column.data.name = title.textContent;
 
-            DOMSerializer.Save();
+            DOMBoard.SaveBoard();
         })
 
         titleEditable.addEventListener('keydown', (e)=>{
@@ -272,9 +272,23 @@ const DOMColumn = (function () {
     }
 
 
+    const ClearAllColumns = function(){
+
+        for(const col of parentContent.children){
+
+            if(col.classList.contains('add-columnn')) continue;
+            
+        }
+
+        while(parentContent.children.length > 1){
+
+            parentContent.children[0].remove();
+        }
+        
+    }
 
 
-    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement, HideDraggedColumn, CalculateInsertPosition, AppendColumnGapBeforeElement};
+    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement, HideDraggedColumn, CalculateInsertPosition, AppendColumnGapBeforeElement, ClearAllColumns};
 
 })();
 
