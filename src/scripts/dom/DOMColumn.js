@@ -239,7 +239,7 @@ const DOMColumn = (function () {
             return;
         }
 
-        const scrollSpeed = .1;
+        const scrollSpeed = .05;
 
         scrollData.currentScroll += scrollData.scrollDirection * scrollSpeed;
         scrollData.scrollElement.scrollTop = scrollData.currentScroll;
@@ -254,7 +254,7 @@ const DOMColumn = (function () {
         const scrollElement = columnContent.parentElement;
         const rect = scrollElement.getBoundingClientRect();
 
-        const scrollMargin = 300;
+        const scrollMargin = 200;
 
 
         if (scrollElement.clientHeight == scrollElement.scrollHeight) {
