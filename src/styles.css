@@ -70,18 +70,30 @@ body {
 }
 
 
+.banner-container{
+
+    min-width: 200px;
+    flex: 0 0 200px;
+
+    overflow: hidden;
+    transition: .2s linear;
+}
+
 .banner {
 
     
     background-image: linear-gradient(0deg, rgb(209, 209, 209), white);
     color: black;
 
-    flex: 0 0 200px;
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+
+    height: 100%;
 
     box-sizing: border-box;
     overflow: hidden;
 
-    transition: .2s linear;
 
     display: flex;
     flex-direction: column;
@@ -89,11 +101,18 @@ body {
     white-space: nowrap;
 
     position: relative;
+
+    pointer-events: none;
+}
+
+.banner *{
+
+    pointer-events: all;
 }
 
 
 
-.hide-animation {
+.banner-container.hide-animation {
 
     min-width: 0px;
     flex: 0 0 0px;

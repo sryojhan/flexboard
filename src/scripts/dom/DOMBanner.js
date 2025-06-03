@@ -6,7 +6,7 @@ const DOMBanner = (function () {
 
 
     //* Collapse logic
-    const banner = document.querySelector('.banner');
+    const banner = document.querySelector('.banner-container');
     const collapsedBanner = document.querySelector('.banner-collapsed');
 
     banner.addEventListener('dblclick', (event) => {
@@ -15,6 +15,8 @@ const DOMBanner = (function () {
 
         banner.classList.toggle('hide-animation');
         collapsedBanner.classList.toggle('hoverable');
+
+        console.log("hola");
     })
 
     collapsedBanner.addEventListener('dblclick', () => {
