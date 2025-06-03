@@ -19,7 +19,6 @@ const DOMBanner = (function () {
         banner.classList.toggle('hide-animation');
         collapsedBanner.classList.toggle('hoverable');
 
-        console.log("hola");
     })
 
     collapsedBanner.addEventListener('dblclick', () => {

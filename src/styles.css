@@ -1000,7 +1000,7 @@ body {
 .delete-elements-border.hidden {
 
 
-    display: block;
+    display: block !important;
     transition: transform 0.2s ease-in-out;
     transform: scaleY(0);
 }

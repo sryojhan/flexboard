@@ -213,6 +213,8 @@ const DOMFlexboard = (function () {
                 DOMBoard.SaveBoard();
             }
 
+            deleteElements.classList.remove('hover');
+
         });
 
 
