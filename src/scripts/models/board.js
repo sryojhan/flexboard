@@ -106,27 +106,31 @@ const Board = (function () {
     }
 
 
-    const DeleteBoard = function(id){
+    const DeleteBoard = function (id) {
 
-        const idx  = data.boards.findIndex((board) => board.id === id);
+        const idx = data.boards.findIndex((board) => board.id === id);
 
         data.boards.splice(idx, 1);
         data.currentBoardIdx = Math.max(0, data.currentBoardIdx - 1);
 
+        if (data.boards.length === 0) {
+
+            CreateBoard();
+        }
         Serializer.RemoveData(id);
         SaveBoardData();
 
     }
 
-    const ChangeBoardOrder = function(id, idFromNewPosition){
+    const ChangeBoardOrder = function (id, idFromNewPosition) {
 
-        const idx  = data.boards.findIndex((board) => board.id === id);
-        
+        const idx = data.boards.findIndex((board) => board.id === id);
+
         const board = data.boards[idx];
         data.boards.splice(idx, 1);
 
 
-        if(!idFromNewPosition){
+        if (!idFromNewPosition) {
 
             data.boards.push(board);
             SaveBoardData();
@@ -135,7 +139,7 @@ const Board = (function () {
 
 
         const newIdx = data.boards.findIndex((board) => board.id === idFromNewPosition);
-        
+
         data.boards.splice(newIdx, 0, board);
 
         SaveBoardData();
