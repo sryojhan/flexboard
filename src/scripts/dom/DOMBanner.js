@@ -1,6 +1,9 @@
 import { Board } from "../models/board";
 import { Serializer } from "../models/Serializer";
 import { DOMBoard } from "./DOMBoard";
+import { CreateGhostImage } from "./DOMUtils";
+
+
 
 const DOMBanner = (function () {
 
@@ -24,6 +27,8 @@ const DOMBanner = (function () {
         banner.classList.toggle('hide-animation');
         collapsedBanner.classList.toggle('hoverable');
     })
+
+
 
 
 
@@ -151,11 +156,105 @@ const DOMBanner = (function () {
     }
 
 
+    //* Board selector drag & drop
+    const boardSelector = document.querySelector('#board-selector');
+
+    const gapElement = document.createElement('div');
+    gapElement.classList.add('banner-button-gap');
+
+    let draggedBoard = null;
+
+    const CalculateInsertPosition = function (yPosition) {
+
+
+        let setNext = false;
+        let insertIdx = 0;
+
+        Array.from(boardSelector.children).forEach((button, idx) => {
+
+            if(button.classList.contains('hidden')){
+
+                return;
+            }
+
+            if(button.classList.contains('banner-button-gap')){
+
+                return;
+            }
+
+            if(setNext){
+
+                insertIdx = idx;
+                setNext = false;
+            }
+
+            const rect = button.getBoundingClientRect();
+
+            if (yPosition > rect.top) {
+
+                setNext = true;
+            }
+
+        });
+
+        if(setNext)
+            insertIdx = -1;
+
+        return insertIdx;
+    }
+
+    banner.addEventListener('dragover', (event) => {
+
+
+
+        if (draggedBoard === null) {
+            return;
+        }
+
+        draggedBoard.classList.add('hidden');
+
+        const insertIdx = CalculateInsertPosition(event.clientY);
+
+        if(insertIdx === -1)
+            boardSelector.append(gapElement);
+        else
+            boardSelector.insertBefore(gapElement, boardSelector.children[insertIdx]);
+
+        event.preventDefault();
+
+    });
+
+    banner.addEventListener('drop', (event) => {
+
+        
+        const insertIdx = CalculateInsertPosition(event.clientY);
+
+        draggedBoard.classList.remove('hidden');
+
+
+        if(insertIdx === -1){
+
+            boardSelector.append(draggedBoard);
+            Board.ChangeBoardOrder(draggedBoard.boardId, null);
+
+        }else{
+
+
+            const elementInPosition = boardSelector.children[insertIdx];
+            
+            boardSelector.insertBefore(draggedBoard, elementInPosition);
+            
+            Board.ChangeBoardOrder(draggedBoard.boardId, elementInPosition.boardId);
+        }
+
+
+    });
+
+
     const InitialiseBoardSelector = function () {
 
         ClearBoardSelector();
 
-        const boardSelector = document.querySelector('#board-selector');
 
         const allBoards = Board.data.boards;
 
@@ -166,10 +265,11 @@ const DOMBanner = (function () {
 
             const button = document.createElement('button');
             button.classList.add('banner-button');
-            button.classList.add('not-implemented');
 
             button.textContent = board.name;
             button.boardId = board.id;
+
+            button.draggable = true;
 
             if (board === currentBoard) {
                 button.disabled = true;
@@ -180,6 +280,19 @@ const DOMBanner = (function () {
 
                 Board.ChangeBoard(button.boardId);
                 DOMBoard.LoadBoard();
+            });
+
+
+            button.addEventListener('dragstart', (event) => {
+
+                draggedBoard = button;
+
+            });
+
+            button.addEventListener('dragend', (event) => {
+
+                gapElement.remove();
+                draggedBoard = null;
             });
 
 

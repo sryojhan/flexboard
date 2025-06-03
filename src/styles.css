@@ -138,7 +138,7 @@ body {
 
 .hidden {
 
-    display: none;
+    display: none !important;
 }
 
 
@@ -242,9 +242,6 @@ body {
     margin-bottom: 0px;
 }
 
-.banner-content {
-
-}
 
 .banner-button {
 
@@ -265,6 +262,18 @@ body {
     
     padding: 6px 20px;
 
+}
+
+.banner-button-gap {
+
+    width: 190px;
+    height: 10px;
+
+    background-color: rgb(146, 146, 146);
+    border-radius: 8px;
+
+    margin: 10px auto;
+    box-sizing: border-box;
 }
 
 .banner-button:disabled {

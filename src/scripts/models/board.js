@@ -118,9 +118,32 @@ const Board = (function () {
 
     }
 
+    const ChangeBoardOrder = function(id, idFromNewPosition){
+
+        const idx  = data.boards.findIndex((board) => board.id === id);
+        
+        const board = data.boards[idx];
+        data.boards.splice(idx, 1);
 
 
-    return { LoadBoardData, SaveBoardData, data, CreateBoard, ChangeBoard, DeleteBoard }
+        if(!idFromNewPosition){
+
+            data.boards.push(board);
+            SaveBoardData();
+            return;
+        }
+
+
+        const newIdx = data.boards.findIndex((board) => board.id === idFromNewPosition);
+        
+        data.boards.splice(newIdx, 0, board);
+
+        SaveBoardData();
+    }
+
+
+
+    return { LoadBoardData, SaveBoardData, data, CreateBoard, ChangeBoard, DeleteBoard, ChangeBoardOrder }
 
 }());
 
