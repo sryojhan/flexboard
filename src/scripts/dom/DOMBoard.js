@@ -9,6 +9,32 @@ import { DOMBanner } from "./DOMBanner";
 
 const DOMBoard = (function(){
 
+    let board = null;
+    const boardNameElement = document.querySelector('#board-name');
+
+    (function Initialise(){
+
+
+
+        boardNameElement.addEventListener('keydown', (event)=>{
+
+            if(event.key === "Enter"){
+                boardNameElement.blur();
+            }
+        });
+
+        boardNameElement.addEventListener('blur', ()=>{
+
+            if(board.name === boardNameElement.textContent) return;
+
+            board.name = boardNameElement.textContent;
+
+            Board.SaveBoardData();
+            DOMBanner.InitialiseBoardSelector();
+        });
+
+
+    })();
    
 
     const GetCurrentBoardName = function(){
@@ -20,25 +46,8 @@ const DOMBoard = (function(){
 
         ClearCurrentBoard();
 
-        const board = Board.data.GetCurrentBoard();
-
-        const boardNameElement = document.querySelector('#board-name');
-        boardNameElement.value = board.name;
-
-        boardNameElement.addEventListener('keydown', (event)=>{
-
-            if(event.key === "Enter"){
-                boardNameElement.blur();
-            }
-        });
-
-        boardNameElement.addEventListener('blur', ()=>{
-
-            board.name = boardNameElement.value;
-            Board.SaveBoardData();
-            DOMBanner.InitialiseBoardSelector();
-        });
-
+        board = Board.data.GetCurrentBoard();
+        boardNameElement.textContent = board.name;
 
 
         const boardData = Serializer.LoadJSON(board.id);

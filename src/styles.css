@@ -172,6 +172,7 @@ body {
     margin: 0;
     font-weight: bold;
 
+    resize: none;
 }
 
 
@@ -289,6 +290,8 @@ body {
     grid-template-rows: 1fr;
 
     position: relative;
+
+
 }
 
 
@@ -364,6 +367,7 @@ body {
     /* To go back to a line remove this 3 rules below. Also erase display:none from separator */
 
     width: 300px;
+    min-width: 300px;
     border-radius: 8px;
     background-color: rgba(24, 24, 24, 0.445);
 }
