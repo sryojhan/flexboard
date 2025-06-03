@@ -5,6 +5,7 @@ import { DOMBanner } from "./scripts/dom/DOMBanner";
 import { DOMBoard } from "./scripts/dom/DOMBoard";
 import { Board } from "./scripts/models/board";
 
+
 setTimeout(()=>{
 
     document.querySelectorAll('.loading').forEach((elem) =>

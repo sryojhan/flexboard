@@ -1,3 +1,41 @@
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('fonts/Nunito-Regular.ttf');
+
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('fonts/Nunito-Medium.ttf');
+
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('fonts/Nunito-Bold.ttf');
+
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('fonts/Nunito-LightItalic.ttf');
+
+    font-weight: 400;
+    font-style: italic;
+}
+
+
+body, h1, h2, p, textarea, input, button{
+
+    font-family: 'Nunito';
+
+}
+
+
 body {
 
 
@@ -12,7 +50,6 @@ body {
 
     user-select: none;
 
-    font-family: monospace;
 
 }
 
@@ -35,6 +72,7 @@ body {
 
 .banner {
 
+    
     background-image: linear-gradient(0deg, rgb(209, 209, 209), white);
     color: black;
 
@@ -169,7 +207,6 @@ body {
 #board-name {
 
     width: 100%;
-    font-family: monospace;
 
     border: none;
     display: block;
@@ -447,7 +484,7 @@ body {
 
     color: black;
     font-weight: 400;
-    font-family: monospace;
+    font-family: 'Nunito';
 
     height: 1.5em;
     font-size: 1.5em;
@@ -672,6 +709,8 @@ body {
 
     font-size: 1em;
     margin-right: 10px;
+
+    font-weight: 800;
 
     transition: var(--hover-transiton-return-time) var(--hover-transition-mode) var(--hover-delay);
 
@@ -905,8 +944,8 @@ body {
 
     --element-width: min(90%, 900px);
 
-    --dark-color: #fe5b59;
-    --light-color: #7c2625;
+    --dark-color: rgb(245, 80, 85);
+    --light-color: #7e201f;
 
     --element-outline-color: var(--dark-color);
     --element-background-color: var(--light-color);
