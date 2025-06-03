@@ -58,7 +58,7 @@ const DOMColumn = (function () {
         titleEditable.type = "text";
         titleEditable.value = name;
         titleEditable.draggable = true;
-        
+
         header.append(dragImage);
         header.append(title);
         header.append(titleEditable);
@@ -79,8 +79,8 @@ const DOMColumn = (function () {
         column.append(header);
         column.append(scrollArea);
 
-        
-        titleEditable.addEventListener('dragstart', (event)=>{
+
+        titleEditable.addEventListener('dragstart', (event) => {
 
 
             event.preventDefault();
@@ -93,11 +93,12 @@ const DOMColumn = (function () {
             column.ghostImage = CreateGhostImage(column, event);
             column.gapElement = CreateGapElement(column);
 
-            event.dataTransfer.setData('flexboard/column', column.data.id);
 
             currentlySelectedColumn = column;
-
+            
+            DOMFlexboard.SetColumnDragType(column.data.id);
             DOMFlexboard.BeginDrag();
+
 
         });
 
@@ -117,6 +118,7 @@ const DOMColumn = (function () {
             currentlySelectedColumn.classList.remove('hidden');
             currentlySelectedColumn = null;
 
+            DOMFlexboard.ClearDragType();
 
             DOMFlexboard.EndDrag();
         });
@@ -222,18 +224,24 @@ const DOMColumn = (function () {
         isScrolling: false,
         scrollDirection: 0,
         scrollElement: null,
-        currentScroll: 0
+        currentScroll: 0,
+        isVertical: false
     }
 
-    const BeginScroll = function (direction, scrollElement) {
+    const BeginScroll = function (direction, scrollElement, isVertical) {
 
         scrollData.isScrolling = true;
         scrollData.scrollDirection = direction;
         scrollData.scrollElement = scrollElement;
-        scrollData.currentScroll = scrollElement.scrollTop;
+        scrollData.isVertical = isVertical;
+
+
+        scrollData.currentScroll = isVertical ? scrollElement.scrollTop : scrollElement.scrollLeft;
+
 
         requestAnimationFrame(Scroll);
     }
+
 
     const EndScroll = function () {
 
@@ -241,11 +249,12 @@ const DOMColumn = (function () {
         scrollData.scrollDirection = 0;
         scrollData.scrollElement = null;
         scrollData.currentScroll = 0;
+        scrollData.isVertical = false;
     }
 
     const Scroll = function () {
 
-        if (!scrollData.isScrolling){
+        if (!scrollData.isScrolling) {
 
             return;
         }
@@ -253,36 +262,68 @@ const DOMColumn = (function () {
         const scrollSpeed = .05;
 
         scrollData.currentScroll += scrollData.scrollDirection * scrollSpeed;
-        scrollData.scrollElement.scrollTop = scrollData.currentScroll;
+
+        if (scrollData.isVertical)
+            scrollData.scrollElement.scrollTop = scrollData.currentScroll;
+        else
+            scrollData.scrollElement.scrollLeft = scrollData.currentScroll;
 
         requestAnimationFrame(Scroll);
     }
 
-    const CalculateScroll = function (columnContent, yPosition) {
+    const CalculateVerticalScroll = function (columnContent, yPosition) {
 
-        if(scrollData.isScrolling) return;
+        if (scrollData.isScrolling) return;
 
         const scrollElement = columnContent.parentElement;
         const rect = scrollElement.getBoundingClientRect();
 
+
+        if (scrollElement.clientHeight === scrollElement.scrollHeight) {
+
+            return;
+        }
+
         const scrollMargin = 200;
 
+        if (yPosition < rect.top + scrollMargin) {
 
-        if (scrollElement.clientHeight == scrollElement.scrollHeight) {
+            BeginScroll(-1, scrollElement, true);
+        }
+        else if (yPosition > rect.bottom - scrollMargin) {
+
+            BeginScroll(1, scrollElement, true);
+        }
+
+    }
+
+
+    const CalculateHorizontalScroll = function (xPosition) {
+
+        if (scrollData.isScrolling) return;
+
+        const scrollElement = parentContent;
+
+        const rect = scrollElement.getBoundingClientRect();
+
+        if (scrollElement.clientWidth === scrollElement.scrollWidth) {
 
             return;
         }
 
 
-        if (yPosition < rect.top + scrollMargin) {
+        const scrollMargin = 200;
 
-            BeginScroll(-1, scrollElement);
-        }
-        else if (yPosition > rect.bottom - scrollMargin) {
+        if (xPosition < rect.left + scrollMargin) {
 
-            BeginScroll(1, scrollElement);
+            BeginScroll(-1, scrollElement, false);
         }
-        
+
+        else if (xPosition > rect.right - scrollMargin) {
+
+            BeginScroll(1, scrollElement, false);
+        }
+
     }
 
 
@@ -369,7 +410,7 @@ const DOMColumn = (function () {
     }
 
 
-    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement, HideDraggedColumn, CalculateInsertPosition, AppendColumnGapBeforeElement, ClearAllColumns, CalculateScroll, EndScroll};
+    return { GetMaxColumnPosition, ClearHighlight, HighlightColumn, CreateColumnElement, HideDraggedColumn, CalculateInsertPosition, AppendColumnGapBeforeElement, ClearAllColumns, CalculateVerticalScroll, CalculateHorizontalScroll, EndScroll };
 
 })();
 

@@ -5,6 +5,9 @@ import { Card } from "../models/card";
 import { Column } from "../models/column";
 import { DOMBoard } from "./DOMBoard";
 
+
+//TODO: change name to flexboard
+
 const DOMFlexboard = (function () {
 
 
@@ -46,7 +49,7 @@ const DOMFlexboard = (function () {
             event.preventDefault();
 
 
-            if (event.dataTransfer.types.includes('flexboard/card')) {
+            if (dragDataTransfer.type === 'flexboard/card') {
 
                 DOMColumn.ClearHighlight();
 
@@ -62,17 +65,19 @@ const DOMFlexboard = (function () {
 
 
                 DOMColumn.EndScroll();
-                DOMColumn.CalculateScroll(columnContent, event.clientY);
+                DOMColumn.CalculateHorizontalScroll(event.clientX);
+                DOMColumn.CalculateVerticalScroll(columnContent, event.clientY);
 
 
-            } else if (event.dataTransfer.types.includes('flexboard/column')) {
+            } else if (dragDataTransfer.type === 'flexboard/column') {
 
                 DOMColumn.HideDraggedColumn();
 
-                const {insertElement} = DOMColumn.CalculateInsertPosition(event.clientX);
+                const { insertElement } = DOMColumn.CalculateInsertPosition(event.clientX);
                 DOMColumn.AppendColumnGapBeforeElement(insertElement);
 
-
+                DOMColumn.EndScroll();
+                DOMColumn.CalculateHorizontalScroll(event.clientX);
 
             }
 
@@ -88,9 +93,9 @@ const DOMFlexboard = (function () {
 
 
 
-            if (event.dataTransfer.types.includes('flexboard/card')) {
+            if (dragDataTransfer.type === 'flexboard/card') {
 
-                const id = event.dataTransfer.getData('flexboard/card');
+                const id = dragDataTransfer.value;
 
                 const card = Card.FindCard(id);
                 const newColumn = DOMColumn.GetMaxColumnPosition(event.clientX);
@@ -114,14 +119,14 @@ const DOMFlexboard = (function () {
             }
 
 
-            else if(event.dataTransfer.types.includes('flexboard/column')){
+            else if (dragDataTransfer.type === 'flexboard/column') {
 
-                const id = event.dataTransfer.getData('flexboard/column');
+                const id = dragDataTransfer.value;
 
                 const col = Column.FindColumn(id);
                 const colElement = col.MainElement();
 
-                const {insertElement, index} = DOMColumn.CalculateInsertPosition(event.clientX);
+                const { insertElement, index } = DOMColumn.CalculateInsertPosition(event.clientX);
 
                 Column.EraseColumn(col);
                 Column.AddColumnAtPosition(col, index);
@@ -165,15 +170,15 @@ const DOMFlexboard = (function () {
         });
 
 
-        deleteElements.addEventListener('drop', (event)=>{
+        deleteElements.addEventListener('drop', (event) => {
 
             event.stopPropagation();
             DOMCard.UnAppedCardGap();
 
 
-            if (event.dataTransfer.types.includes('flexboard/card')) {
+            if (dragDataTransfer.type === 'flexboard/card') {
 
-                const id = event.dataTransfer.getData('flexboard/card');
+                const id = dragDataTransfer.value;
 
                 const card = Card.FindCard(id);
 
@@ -188,14 +193,14 @@ const DOMFlexboard = (function () {
 
                 DOMBoard.SaveBoard();
             }
-            else if(event.dataTransfer.types.includes('flexboard/column')){
+            else if (dragDataTransfer.type === 'flexboard/column') {
 
 
-                const id = event.dataTransfer.getData('flexboard/column');
+                const id = dragDataTransfer.value;
 
                 const column = Column.FindColumn(id);
 
-                column.cardsInColumn.forEach((card) =>{
+                column.cardsInColumn.forEach((card) => {
 
                     Column.EraseCardFromHierarchy(card);
                 });
@@ -209,12 +214,36 @@ const DOMFlexboard = (function () {
 
         });
 
+
     })();
 
 
+    const dragDataTransfer = {
+
+        type: "none",
+        value: null
+    }
 
 
-    return { BeginDrag, EndDrag }
+    const SetCardDragType = function (id) {
+        dragDataTransfer.type = "flexboard/card";
+        dragDataTransfer.value = id;
+    }
+
+    const SetColumnDragType = function (id) {
+        dragDataTransfer.type = "flexboard/column"
+        dragDataTransfer.value = id;
+    }
+
+    const ClearDragType = function () {
+        dragDataTransfer.type = "none";
+        dragDataTransfer.value = null;
+    }
+
+
+
+
+    return { BeginDrag, EndDrag, SetCardDragType, SetColumnDragType, ClearDragType }
 
 
 })();

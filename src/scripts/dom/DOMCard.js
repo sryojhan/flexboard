@@ -41,7 +41,8 @@ const DOMCard = (function () {
             event.target.ghostCard = CreateGhostImage(event.target, event);
             event.target.gapElement = CreateGapElement(event.target);
 
-            event.dataTransfer.setData('flexboard/card', card.data.id);
+
+            DOMFlexboard.SetCardDragType(card.data.id);
 
             currentlyDraggedCard = event.target;
 
@@ -66,6 +67,8 @@ const DOMCard = (function () {
             }
             
             currentlyDraggedCard = null;
+
+            DOMFlexboard.ClearDragType();
 
             DOMFlexboard.EndDrag();
         });
