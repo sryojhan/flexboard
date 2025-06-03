@@ -46,8 +46,6 @@ const DOMFlexboard = (function () {
 
         content.addEventListener('dragover', (event) => {
 
-            event.preventDefault();
-
 
             if (dragDataTransfer.type === 'flexboard/card') {
 
@@ -68,6 +66,8 @@ const DOMFlexboard = (function () {
                 DOMColumn.CalculateHorizontalScroll(event.clientX);
                 DOMColumn.CalculateVerticalScroll(columnContent, event.clientY);
 
+                event.preventDefault();
+
 
             } else if (dragDataTransfer.type === 'flexboard/column') {
 
@@ -79,11 +79,12 @@ const DOMFlexboard = (function () {
                 DOMColumn.EndScroll();
                 DOMColumn.CalculateHorizontalScroll(event.clientX);
 
+                event.preventDefault();
             }
 
             else {
 
-                console.log("hubo un problema");
+                console.error("Problem reading data transfer types");
             }
 
 

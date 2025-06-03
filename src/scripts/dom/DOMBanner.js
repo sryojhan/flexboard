@@ -113,6 +113,12 @@ const DOMBanner = (function () {
         InitialiseBoardSelector();
     });
 
+    document.querySelector('#card-height-collapse').addEventListener('click', () => {
+
+        document.querySelector('.content').classList.toggle("uncollapseCards");
+
+    });
+
     document.querySelector('#clear-all-data').addEventListener('click', () => {
         Serializer.ClearData();
 
@@ -163,8 +169,7 @@ const DOMBanner = (function () {
             button.textContent = board.name;
             button.boardId = board.id;
 
-            if (board === currentBoard)
-            {
+            if (board === currentBoard) {
                 button.disabled = true;
             }
 
