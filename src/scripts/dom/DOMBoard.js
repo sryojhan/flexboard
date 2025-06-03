@@ -14,8 +14,6 @@ const DOMBoard = (function(){
 
     (function Initialise(){
 
-
-
         boardNameElement.addEventListener('keydown', (event)=>{
 
             if(event.key === "Enter"){
@@ -28,6 +26,7 @@ const DOMBoard = (function(){
             if(board.name === boardNameElement.textContent) return;
 
             board.name = boardNameElement.textContent;
+            document.title = board.name;
 
             Board.SaveBoardData();
             DOMBanner.InitialiseBoardSelector();
@@ -48,7 +47,8 @@ const DOMBoard = (function(){
 
         board = Board.data.GetCurrentBoard();
         boardNameElement.textContent = board.name;
-
+        
+        document.title = board.name;
 
         const boardData = Serializer.LoadJSON(board.id);
 

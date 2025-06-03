@@ -105,6 +105,14 @@ const DOMBanner = (function () {
 
     });
 
+    document.querySelector('#delete-board').addEventListener('click', () => {
+
+        Board.DeleteBoard(Board.data.GetCurrentBoard().id);
+
+        DOMBoard.LoadBoard();
+        InitialiseBoardSelector();
+    });
+
     document.querySelector('#clear-all-data').addEventListener('click', () => {
         Serializer.ClearData();
 

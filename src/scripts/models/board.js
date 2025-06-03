@@ -106,7 +106,21 @@ const Board = (function () {
     }
 
 
-    return { LoadBoardData, SaveBoardData, data, CreateBoard, ChangeBoard }
+    const DeleteBoard = function(id){
+
+        const idx  = data.boards.findIndex((board) => board.id === id);
+
+        data.boards.splice(idx, 1);
+        data.currentBoardIdx = Math.max(0, data.currentBoardIdx - 1);
+
+        Serializer.RemoveData(id);
+        SaveBoardData();
+
+    }
+
+
+
+    return { LoadBoardData, SaveBoardData, data, CreateBoard, ChangeBoard, DeleteBoard }
 
 }());
 

@@ -34,7 +34,13 @@ const Serializer = (function () {
     }
 
 
-    return { SaveJSON, LoadJSON, SaveString, LoadString, ClearData}
+    const RemoveData = function(name){
+
+        window.localStorage.removeItem(name);
+    }
+
+
+    return { SaveJSON, LoadJSON, SaveString, LoadString, ClearData, RemoveData}
 
 })();
 
