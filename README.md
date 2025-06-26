@@ -1,7 +1,7 @@
-# 🧩 Flexboard
+# 🧩 Flexboard [🎮 Live Preview](https://sryojhan.github.io/flexboard/)
 
 A Trello-inspired kanban board built entirely with vanilla JavaScript — fast, private, and fully customizable.  
-[🎮 Live Demo](https://sryojhan.github.io/flexboard/)
+
 
 ---
 
